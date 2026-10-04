@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# .git/hooks/pre-commit — CHALLENGE "Gerbang Mutu Sebelum Commit" (Minggu 3).
+# Menolak commit bila: (a) perubahan ter-stage memuat pola kredensial,
+# atau (b) berkas .sh ter-stage tidak lolos shellcheck.
+set -euo pipefail
+
+# (a) Deteksi pola kredensial HANYA pada perubahan yang di-stage.
+cred_pattern='ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{12,}|-----BEGIN[A-Z ]*PRIVATE KEY-----|(PASSWORD|SECRET|TOKEN)[[:space:]]*=[[:space:]]*[^[:space:]]'
+staged="$(git diff --cached --no-color || true)"
+if printf '%s\n' "$staged" | grep -nEq "$cred_pattern"; then
+  echo "pre-commit: DITOLAK — terdeteksi pola menyerupai kredensial:" >&2
+  printf '%s\n' "$staged" | grep -nEi "$cred_pattern" >&2
+  echo "Rotasi kredensial & keluarkan dari staging sebelum commit." >&2
+  exit 1
+fi
+
+# (b) shellcheck pada setiap berkas .sh yang di-stage.
+mapfile -t sh_files < <(git diff --cached --name-only --diff-filter=ACM | grep -E '\.sh$' || true)
+if ((${#sh_files[@]} > 0)) && command -v shellcheck >/dev/null 2>&1; then
+  if ! shellcheck "${sh_files[@]}"; then
+    echo "pre-commit: DITOLAK — shellcheck melaporkan peringatan pada skrip ter-stage." >&2
+    exit 1
+  fi
+fi
+
+echo "pre-commit: seluruh pemeriksaan lolos."
+exit 0

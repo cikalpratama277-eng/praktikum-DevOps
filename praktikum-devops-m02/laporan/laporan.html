@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<title>Laporan Praktikum DevOps M02 — Cikal Pratama</title>
+<style>
+  @page {
+    size: A4; margin: 22mm 20mm 20mm 20mm;
+    @bottom-center { content: "Laporan Praktikum DevOps — Minggu ke-2 (JS-DVO-02)"; font-size: 8pt; color: #8a8f98; }
+    @bottom-right  { content: "Hal. " counter(page) " / " counter(pages); font-size: 8pt; color: #8a8f98; }
+  }
+  @page :first { @bottom-center { content: ""; } @bottom-right { content: ""; } }
+  * { box-sizing: border-box; }
+  body { font-family: "DejaVu Serif", Georgia, serif; font-size: 10.5pt; line-height: 1.55; color: #1c2128; margin: 0; }
+  h1,h2,h3,h4 { font-family: "DejaVu Sans", Arial, sans-serif; color: #0a3d2e; line-height: 1.25; }
+  h2 { font-size: 15pt; margin-top: 1.6em; border-bottom: 2px solid #0a7d55; padding-bottom: 4px; }
+  h3 { font-size: 12pt; margin-top: 1.2em; color: #0a7d55; }
+  h4 { font-size: 10.5pt; margin: .9em 0 .3em; color: #11916a; }
+  p { margin: .5em 0; text-align: justify; }
+  ul, ol { margin: .4em 0 .6em; padding-left: 1.3em; }
+  li { margin: .18em 0; }
+  code, pre { font-family: "DejaVu Sans Mono", monospace; }
+  code { background: #eef4f1; padding: 1px 4px; border-radius: 3px; font-size: 8.6pt; }
+  pre { background: #0d1f1a; color: #cfe8df; padding: 10px 12px; border-radius: 6px; font-size: 8pt; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }
+  table { border-collapse: collapse; width: 100%; margin: .6em 0 1em; font-size: 9pt; }
+  th, td { border: 1px solid #c4ccd4; padding: 5px 7px; text-align: left; vertical-align: top; }
+  th { background: #0a3d2e; color: #fff; font-family: "DejaVu Sans", Arial, sans-serif; font-weight: 600; }
+  tr:nth-child(even) td { background: #f2f7f5; }
+  .center { text-align: center; } .muted { color: #5a636e; }
+  .tag { display: inline-block; background: #0a7d55; color: #fff; font-size: 8pt; padding: 1px 8px; border-radius: 10px; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .note { background: #fff8e1; border-left: 4px solid #e0a800; padding: 8px 12px; font-size: 9pt; margin: .8em 0; border-radius: 0 4px 4px 0; }
+  .callout { background: #e8f6f0; border-left: 4px solid #0a7d55; padding: 8px 12px; font-size: 9.2pt; margin: .8em 0; border-radius: 0 4px 4px 0; }
+  .placeholder { border: 1.5px dashed #9aa4ae; border-radius: 6px; padding: 22px; text-align: center; color: #6b7480; font-family: "DejaVu Sans", Arial, sans-serif; font-size: 9pt; margin: .8em 0; }
+  .cover { text-align: center; padding-top: 40mm; page-break-after: always; }
+  .cover .kop { font-family: "DejaVu Sans", Arial, sans-serif; letter-spacing: 1px; color: #0a7d55; }
+  .cover h1 { font-size: 24pt; margin: 18px 0 6px; }
+  .cover .sub { font-size: 13pt; color: #11916a; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .idbox { margin: 40px auto 0; width: 82%; border: 1px solid #c4ccd4; border-radius: 8px; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .idbox table { margin: 0; font-size: 10pt; } .idbox td { border: none; border-bottom: 1px solid #e3e8ed; padding: 8px 14px; }
+  .idbox td:first-child { color: #5a636e; width: 38%; }
+  .section { page-break-before: always; }
+  .kv td:first-child { width: 45%; color: #33404c; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .small { font-size: 8.6pt; } .ok { color: #1a7f37; font-weight: bold; } .bad { color: #b42318; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="kop">POLITEKNIK NEGERI BATAM<br/>PROGRAM STUDI REKAYASA KEAMANAN SIBER</div>
+  <div style="margin-top:28px" class="tag">JS-DVO-02 · Pertemuan Minggu ke-2</div>
+  <h1>Laporan Praktikum DevOps</h1>
+  <div class="sub">Linux Foundation for DevOps:<br/>Shell Scripting, CLI, &amp; Manajemen Sistem</div>
+  <div class="idbox">
+    <table>
+      <tr><td>Nama Mahasiswa</td><td><b>Cikal Pratama</b></td></tr>
+      <tr><td>NIM</td><td><b>4332511053</b></td></tr>
+      <tr><td>Mata Kuliah</td><td>DevOps (RKS305) — 3 SKS</td></tr>
+      <tr><td>Program Studi / Semester</td><td>Rekayasa Keamanan Siber / 3</td></tr>
+      <tr><td>Dosen Pengampu</td><td>Antoni Haikal</td></tr>
+      <tr><td>Prasyarat</td><td>JS-DVO-01 (Minggu 1) — selesai</td></tr>
+      <tr><td>Berkas</td><td>M02_4332511053_Cikal Pratama.pdf</td></tr>
+    </table>
+  </div>
+  <p style="margin-top:46px" class="muted small">Tahun Akademik 2026/2027</p>
+</div>
+
+<!-- DAFTAR ISI -->
+<h2>Daftar Isi</h2>
+<div class="small">
+<ol>
+  <li>Tujuan &amp; Ringkasan Capaian</li>
+  <li>Dasar Teori Ringkas (FHS, Izin, Pipe, Exit Code)</li>
+  <li>Hasil Pelaksanaan
+    <ol>
+      <li>JOB 1 — Struktur Berkas, Kepemilikan &amp; Izin Akses</li>
+      <li>JOB 2 — Analisis Log dengan Pipeline Teks</li>
+      <li>JOB 3 — Proses, Layanan &amp; Sumber Daya Sistem</li>
+      <li>JOB 4 — Skrip Bash Modular <code>sysreport.sh</code></li>
+      <li>JOB 5 — Refaktor <code>setup.sh</code> Menjadi Modular</li>
+    </ol>
+  </li>
+  <li>Bonus Challenge — "Health Watcher"</li>
+  <li>Jawaban Pertanyaan Analisis (4.1)</li>
+  <li>Kesimpulan</li>
+  <li>Lampiran (kode skrip, bukti output, repo &amp; screenshot)</li>
+</ol>
+</div>
+<div class="note"><b>Catatan keterbukaan.</b> Seluruh keluaran terminal pada laporan
+ini diambil dari <b>eksekusi nyata</b> skrip yang disertakan. Angka spesifik
+(sebaran status, CFR, pemakaian disk/memori) bergantung pada data sintetis acak
+dan mesin eksekusi, sehingga dapat berbeda saat Anda menjalankannya. Lingkungan
+eksekusi berjalan sebagai <code>root</code>; pada workstation mahasiswa nilai
+<code>id</code>/pemilik berkas menyesuaikan akun Anda. Tautan repository &amp;
+tangkapan layar pada Lampiran diisi mahasiswa.</div>
+
+<!-- 1 TUJUAN -->
+<h2 class="section">1. Tujuan &amp; Ringkasan Capaian</h2>
+<p>Melanjutkan layanan PT Sentra Digital Batam dari Minggu 1: layanan kini berjalan
+di server dan sebagian pengguna menerima galat, namun belum ada perkakas
+pemantauan. Berbekal akses CLI dan sebuah berkas log, praktikum ini menelusuri
+penyebabnya, memeriksa kesehatan sistem, lalu <b>mengubah prosedur manual menjadi
+skrip Bash modular</b> yang dapat dijalankan siapa pun dengan hasil sama.</p>
+<table>
+  <tr><th>Kode</th><th>Rumusan</th><th>Status</th></tr>
+  <tr><td>Sub-CPMK 2.1</td><td>FHS, model kepemilikan/izin, prinsip <i>least privilege</i>.</td><td class="ok">Tercapai (JOB 1)</td></tr>
+  <tr><td>Sub-CPMK 2.2</td><td>grep/awk/sed/sort/uniq/find via pipe &amp; redirection untuk analisis log.</td><td class="ok">Tercapai (JOB 2)</td></tr>
+  <tr><td>Sub-CPMK 2.3</td><td>Diagnosis sistem (ps/top/df/free/ss/systemctl) &amp; kendali proses aman.</td><td class="ok">Tercapai (JOB 3)</td></tr>
+  <tr><td>Sub-CPMK 2.4</td><td>Skrip Bash modular: fungsi, getopts, validasi, exit code bermakna.</td><td class="ok">Tercapai (JOB 4)</td></tr>
+  <tr><td>Sub-CPMK 2.5</td><td>Refaktor <code>setup.sh</code> berpustaka bersama + logging + shellcheck.</td><td class="ok">Tercapai (JOB 5)</td></tr>
+</table>
+<p>Tiga artefak wajib berjalan dan <b>lolos <code>shellcheck</code> tanpa peringatan</b>:
+<code>buat-log.sh</code>, <code>sysreport.sh</code>, dan <code>setup.sh</code> versi
+modular (ditambah bonus <code>healthwatch.sh</code>).</p>
+
+<!-- 2 DASAR TEORI -->
+<h2 class="section">2. Dasar Teori Ringkas</h2>
+<p>Linux adalah <b>substrat</b> kerja DevOps: Docker, Kubernetes, Terraform,
+Ansible, hingga runner CI/CD berjalan native di atas kernel Linux dan dikelola
+lewat CLI, bukan GUI. Dua pilar interaksinya:</p>
+<ul>
+  <li><b>Filesystem Hierarchy Standard (FHS)</b> — satu pohon tunggal berakar
+  <code>/</code>. <code>/etc</code> (konfigurasi), <code>/var/log</code> (log —
+  sumber observability), <code>/usr/bin</code> (biner CLI), <code>/tmp</code>
+  (artefak sementara CI/CD). Standarisasi inilah yang membuat skrip berpindah dari
+  laptop ke server/kontainer tanpa mengubah path.</li>
+  <li><b>Ownership &amp; Permissions</b> — entitas User/Group/Other dengan izin
+  r(4)/w(2)/x(1). Lahir prinsip <b>Least Privilege</b>: beri izin seminimal
+  mungkin. Anti-pola berbahaya: <code>chmod 777</code> dan menjalankan
+  aplikasi/kontainer sebagai <code>root</code>.</li>
+</ul>
+<p>Filosofi Unix <i>"do one thing and do it well"</i> + operator aliran data:
+<b>pipe</b> (<code>|</code>), <b>redirection</b> (<code>&gt;</code> timpa,
+<code>&gt;&gt;</code> tambah), dan <b>stream merging</b> (<code>2&gt;&amp;1</code>)
+menyambung program kecil menjadi "mesin analitik" log.</p>
+<p><b>Kontrak Exit Code:</b> <code>0</code> = sukses; non-nol = gagal. Runner CI/CD
+tidak melihat tampilan — mereka membaca exit code. Anti-pola <i>"membutakan
+pipeline"</i> (<code>|| true</code> atau memaksa <code>exit 0</code>) membuat
+runner menganggap semua lulus meski tes gagal. Karena itu
+<code>set -euo pipefail</code> + <code>trap</code>, pustaka fungsi bersama,
+logging terstruktur, idempotensi, dan analisis statis menjadikan shell script
+bentuk paling awal <b>Infrastructure as Code</b>.</p>
+
+<h3>Tabel 2.1 — Peta Perkakas CLI dalam Alur Kerja DevOps</h3>
+<table class="small">
+  <tr><th>Kelompok</th><th>Perkakas Inti</th><th>Peran</th></tr>
+  <tr><td>Navigasi &amp; berkas</td><td>ls, cd, stat, find, du</td><td>Menelusuri artefak build, menemukan konfigurasi &amp; log</td></tr>
+  <tr><td>Izin &amp; kepemilikan</td><td>chmod, chown, umask, id</td><td>Menerapkan least privilege pada skrip, kunci, direktori</td></tr>
+  <tr><td>Pengolah teks</td><td>grep, awk, sed, cut, sort, uniq</td><td>Analisis log, ekstraksi metrik, penyaringan keluaran</td></tr>
+  <tr><td>Proses</td><td>ps, top, pgrep, kill, jobs</td><td>Mengendalikan aplikasi; penghentian anggun</td></tr>
+  <tr><td>Sumber daya</td><td>df, free, uptime, ss</td><td>Diagnosis kapasitas &amp; konflik port</td></tr>
+  <tr><td>Layanan &amp; log</td><td>systemctl, journalctl</td><td>Mengelola daemon &amp; menelusuri kegagalan</td></tr>
+  <tr><td>Skrip &amp; kualitas</td><td>bash, getopts, trap, shellcheck</td><td>Prosedur sebagai kode yang dapat diuji &amp; ditinjau</td></tr>
+</table>
+
+<!-- 3 HASIL -->
+<h2 class="section">3. Hasil Pelaksanaan</h2>
+
+<h3>3.1 JOB 1 — Struktur Berkas, Kepemilikan &amp; Izin Akses</h3>
+<p>Identitas, <code>umask</code>, dan percobaan izin pada berkas yang
+mensimulasikan kredensial (keluaran nyata):</p>
+<pre>$ id
+uid=0(root) gid=0(root) groups=0(root)
+$ umask
+0022
+$ df -h /
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          95G   19G   77G  20% /
+
+--- percobaan izin akses ---
+$ stat -c '%a %U:%G %n' kredensial-latihan.txt   (default, dipengaruhi umask 0022)
+644 root:root kredensial-latihan.txt
+$ chmod 600 ; stat ...        -> 600 root:root   (least privilege)
+$ chmod u+x,go-rwx ; stat ... -> 700 root:root   (notasi simbolik)
+$ chmod 600 (kembalikan aman) -> 600 root:root</pre>
+<p class="callout"><b>Interpretasi digit izin.</b> <code>644</code> =
+<code>rw-r--r--</code> (pemilik baca+tulis; grup &amp; other hanya baca).
+<code>600</code> = <code>rw-------</code> (hanya pemilik; grup &amp; other
+<b>kehilangan</b> akses baca — tepat untuk berkas kredensial).
+<code>umask 0022</code> menjelaskan mengapa berkas baru tidak pernah langsung
+punya izin eksekusi: bit <code>x</code> di-mask, selaras <i>least privilege</i>.</p>
+<p class="muted small">Catatan: lingkungan eksekusi berjalan sebagai
+<code>root</code>; pada mesin mahasiswa <code>id</code> &amp; pemilik berkas akan
+menampilkan akun Anda (mis. <code>cikal</code>).</p>
+
+<h3 class="section">3.2 JOB 2 — Analisis Log dengan Pipeline Teks</h3>
+<p>Generator <code>buat-log.sh</code> (Lampiran B.1) menghasilkan
+<code>app.log</code> 500 baris berformat Common Log sehingga kolom konsisten:
+<code>$7</code>=endpoint, <code>$9</code>=kode status, <code>$10</code>=waktu
+respons (ms). Verifikasi bentuk data: <code>awk '{print NF}' | sort -u</code> →
+<b>10 kolom</b> per baris. Contoh baris:</p>
+<pre>192.168.5.20 - - [03/Oct/2026:15:42:09 +0000] "GET /api/users HTTP/1.1" 500 381</pre>
+
+<h4>Sebaran kode status — <code>awk '{print $9}' | sort | uniq -c | sort -rn</code></h4>
+<pre>    205 200
+     97 404
+     59 301
+     56 502
+     47 201
+     36 500</pre>
+<h4>Endpoint paling sering gagal (&ge;500) — <code>awk '$9&gt;=500{print $7}' | sort | uniq -c | sort -rn</code></h4>
+<pre>     30 /health
+     23 /api/users
+     21 /static/app.js
+     18 /api/orders</pre>
+<h4>Metrik performa &amp; proksi Change Failure Rate</h4>
+<pre>Rata-rata respons: 613.7 ms dari 500 permintaan
+Proksi Change Failure Rate: 18.40% (92 dari 500)   # 92 = jumlah 500 (36) + 502 (56)</pre>
+<p class="callout">Kegagalan (&ge;500) <b>tersebar</b> di semua endpoint dengan
+konsentrasi tertinggi di <code>/health</code> (30) dan <code>/api/users</code> (23).
+Hasil ringkas disimpan ke <code>ringkasan-log.txt</code> (Lampiran E) via
+<code>{ ... } | tee</code>. Kaitan DORA: angka 18,40% adalah proksi
+<i>Change Failure Rate</i> dari Minggu 1.</p>
+
+<h3 class="section">3.3 JOB 3 — Proses, Layanan &amp; Sumber Daya Sistem</h3>
+<p>Aplikasi Minggu 1 dijalankan sebagai proses latar, ditemukan kembali,
+diverifikasi port-nya, lalu dihentikan <b>secara anggun</b> (SIGTERM setelah
+verifikasi PID). Keluaran nyata:</p>
+<pre>$ ps -eo pid,ppid,user,%cpu,%mem,etime,comm --sort=-%cpu | head -n 8
+    PID    PPID USER     %CPU %MEM     ELAPSED COMMAND
+   2373    2371 root      5.0  0.1       00:02 python3      &lt;- aplikasi kita
+    219     206 root      1.4  1.5       15:15 node
+     10       7 root      0.8  0.6       15:19 uvicorn
+
+$ pgrep -af 'src/app.py'
+2373 python3 src/app.py
+$ ss -ltnp | grep 5000
+LISTEN 0 128 127.0.0.1:5000 0.0.0.0:* users:(("python3",pid=2373,fd=3))
+$ curl -s http://127.0.0.1:5000/health
+{"status":"ok"}
+
+--- penghentian anggun ---
+$ ps -p 2373 -o pid,comm,etime      # WAJIB verifikasi sebelum sinyal
+   2373 python3               00:02
+$ kill -TERM 2373
+Aplikasi berhasil dihentikan secara anggun.
+$ ss -ltn | grep 5000               # setelah mati
+(port 5000 sudah tidak LISTEN)</pre>
+<h4>Kondisi sumber daya</h4>
+<pre>$ df -h /         overlay 95G  19G used  77G avail  20%
+$ free -h         Mem: 15Gi total, 10Gi used, 4.9Gi available  (≈67% terpakai)
+$ uptime          up 1 day, 18:02, load average: 0.60, 0.88, 0.97</pre>
+<p class="callout"><b>SIGTERM vs SIGKILL.</b> Aplikasi berhenti ≤2 detik setelah
+SIGTERM — sempat menutup koneksi &amp; menyimpan data. SIGKILL (<code>-9</code>)
+tidak memberi kesempatan itu sehingga berisiko merusak berkas; dipakai hanya bila
+SIGTERM tak direspons. Baris <code>LISTEN :5000</code> yang <b>hilang</b> dari
+<code>ss</code> membuktikan proses benar-benar berhenti — cara cepat mendiagnosis
+konflik port. (Pada lingkungan container ini <code>systemd</code> tidak aktif,
+sesuai catatan job sheet untuk WSL2.)</p>
+
+<h3 class="section">3.4 JOB 4 — Skrip Bash Modular <code>sysreport.sh</code></h3>
+<p>Prosedur pemeriksaan JOB 3 diubah menjadi skrip (Lampiran B.2) yang memuat
+<b>fungsi</b> (<code>disk_usage_pct</code>, <code>mem_used_pct</code>,
+<code>proc_count</code>), <b>penguraian argumen</b> <code>getopts</code>,
+<b>validasi masukan</b> (ambang harus angka), serta <b>exit code bermakna</b>.
+Contoh keluaran JSON (<code>-j</code>):</p>
+<pre>{"host":"agent-env-...","disk_pct":20,"mem_pct":67,"proc":23,"status":"OK"}</pre>
+
+<h4>Tabel 3.1 — Pengujian seluruh jalur &amp; exit code (hasil nyata)</h4>
+<table>
+  <tr><th>Skenario</th><th>Perintah</th><th>Exit code</th><th>Makna</th></tr>
+  <tr><td>Normal</td><td><code>./sysreport.sh</code></td><td class="ok">0</td><td>Sistem sehat</td></tr>
+  <tr><td>JSON</td><td><code>./sysreport.sh -j</code></td><td class="ok">0</td><td>Sehat, format JSON</td></tr>
+  <tr><td>Lewat ambang</td><td><code>./sysreport.sh -d 1</code></td><td>2</td><td>Disk ≥ ambang → PERINGATAN</td></tr>
+  <tr><td>Validasi masukan</td><td><code>./sysreport.sh -d abc</code></td><td class="bad">1</td><td>Ambang bukan angka → galat</td></tr>
+  <tr><td>Opsi tak dikenal</td><td><code>./sysreport.sh -z</code></td><td class="bad">1</td><td>Galat penggunaan</td></tr>
+  <tr><td>Bantuan</td><td><code>./sysreport.sh -h</code></td><td class="ok">0</td><td>Cetak usage lalu keluar</td></tr>
+</table>
+<p class="callout"><b>Mengapa pembedaan ini mutlak bagi CI/CD?</b> Runner hanya
+membaca exit code. Pembedaan <b>0</b> (lanjut), <b>2</b> (kondisi peringatan yang
+dapat ditangani berbeda), dan <b>1</b> (galat penggunaan) memungkinkan pipeline
+mengambil keputusan tepat alih-alih "buta". Analisis statis:
+<code>shellcheck sysreport.sh</code> → <b>bersih, tanpa peringatan</b>.</p>
+
+<h3 class="section">3.5 JOB 5 — Refaktor <code>setup.sh</code> Menjadi Modular</h3>
+<p>Fungsi bersama dipisah ke <code>lib/common.sh</code> (Lampiran B.4): logging
+bertimestamp (<code>log_info/log_warn/log_error</code>), <code>die</code>,
+<code>require_cmd</code>, <code>port_is_free</code>. <code>setup.sh</code>
+(Lampiran B.3) kini <code>source</code> pustaka itu dan mengganti seluruh
+<code>echo</code> dengan fungsi logging. Keluaran nyata + isi
+<code>/tmp/sentra-deploy.log</code>:</p>
+<pre>2026-10-04T07:22:53+0000 [INFO ] [1/5] Memeriksa prasyarat...
+2026-10-04T07:22:55+0000 [INFO ] [2/5] Menyiapkan virtual environment...
+2026-10-04T07:22:59+0000 [INFO ] [3/5] Memasang dependensi terkunci...
+2026-10-04T07:22:59+0000 [INFO ] [4/5] Menjalankan aplikasi pada port 5000...
+2026-10-04T07:22:59+0000 [INFO ] [5/5] Melakukan smoke test...
+2026-10-04T07:23:01+0000 [INFO ] SUKSES: aplikasi berjalan dan lulus health check (PID 1486, port 5000).</pre>
+<p class="callout">Dibanding Minggu 1, log kini memuat <b>stempel waktu ISO-8601</b>
+&amp; <b>level</b> ([INFO]/[WARN]/[ERROR]) yang tersimpan permanen di berkas —
+mempercepat penelusuran insiden (kapan tiap tahap terjadi, di mana melambat).
+<code>shellcheck setup.sh lib/common.sh</code> → <b>bersih</b>.</p>
+
+<!-- 4 CHALLENGE -->
+<h2 class="section">4. Bonus Challenge — "Health Watcher"</h2>
+<p>Skrip <code>healthwatch.sh</code> (Lampiran B.5) memantau endpoint
+<code>/health</code>. Pengujian wajib dijalankan: pantau → hentikan aplikasi
+(<code>kill -TERM</code>) → tunggu → hidupkan lagi → tekan Ctrl+C. Keluaran nyata:</p>
+<pre>Memantau http://127.0.0.1:5000/health setiap 2s — tekan Ctrl+C untuk berhenti.
+2026-10-04T07:26:09+0000 status=UP   rt_ms=13
+2026-10-04T07:26:13+0000 status=UP   rt_ms=14
+2026-10-04T07:26:15+0000 status=DOWN rt_ms=12
+  !! INSIDEN #1 dimulai pada 2026-10-04T07:26:15+0000
+2026-10-04T07:26:19+0000 status=DOWN rt_ms=12
+2026-10-04T07:26:21+0000 status=UP   rt_ms=13
+  &gt;&gt; PULIH pada 2026-10-04T07:26:21+0000 — MTTR insiden ini: 6 detik
+2026-10-04T07:26:25+0000 status=UP   rt_ms=14
+
+===== RINGKASAN SESI HEALTH WATCHER =====
+Jumlah pemeriksaan       : 9
+Jumlah insiden           : 1
+Total waktu padam        : 6 detik
+Ketersediaan             : 66.67%
+Berkas log               : /tmp/healthwatch.log
+=========================================
+exit code = 2   (minimal satu insiden terjadi)</pre>
+<table class="small">
+  <tr><th>#</th><th>Ketentuan</th><th>Status</th></tr>
+  <tr><td>1</td><td><code>--interval N</code> (def 5) &amp; <code>--url</code> (def /health) + validasi argumen</td><td class="ok">✔</td></tr>
+  <tr><td>2</td><td>Log terstruktur 1 baris/cek: timestamp ISO-8601, UP/DOWN, rt_ms</td><td class="ok">✔</td></tr>
+  <tr><td>3</td><td>Deteksi transisi + hitung MTTR saat kembali UP</td><td class="ok">✔ (MTTR 6 dtk)</td></tr>
+  <tr><td>4</td><td><code>trap</code> SIGINT → ringkasan sesi (cek, insiden, padam, %availability)</td><td class="ok">✔</td></tr>
+  <tr><td>5</td><td>Exit code bermakna: 0 tanpa insiden, 2 bila ada insiden</td><td class="ok">✔ (exit 2)</td></tr>
+  <tr><td>6</td><td>Lolos <code>shellcheck</code> tanpa peringatan</td><td class="ok">✔</td></tr>
+</table>
+<div class="placeholder">[ Tempel tangkapan layar ringkasan sesi Health Watcher di sini ]</div>
+<p class="note">Kumpulkan sebagai <b>commit terpisah</b>:
+<code>feat(challenge): health watcher dengan MTTR dan ringkasan sesi</code>
+(nilai tambahan maksimal +10).</p>
+
+<!-- 5 ANALISIS -->
+<h2 class="section">5. Jawaban Pertanyaan Analisis (4.1)</h2>
+
+<h3>5.1 Batas kemampuan <code>set -e</code></h3>
+<p>Meski skrip memuat <code>set -euo pipefail</code>, perintah gagal <b>tidak</b>
+selalu menghentikan eksekusi. Minimal dua situasi:</p>
+<ol>
+  <li><b>Di dalam kondisi <code>if</code>/<code>while</code> atau sisi kiri
+  <code>&amp;&amp;</code> / <code>||</code>.</b> Status gagal di konteks ini
+  "dikonsumsi" sebagai nilai boolean, jadi <code>set -e</code> diabaikan. Contoh:
+  <code>if grep xyz f; then ...</code> tidak berhenti walau grep gagal.
+  <i>Penanganan:</i> tangani eksplisit —
+  <code>if ! cmd; then die "..."; fi</code>, sehingga kegagalan jadi keputusan
+  sadar, bukan lolos diam-diam.</li>
+  <li><b>Pada <i>command substitution</i> di penugasan variabel</b>, mis.
+  <code>out="$(cmd_gagal)"</code>. Pada banyak kondisi, status keluar penugasan =
+  status <code>local</code>/assignment, bukan <code>cmd</code>, sehingga skrip
+  jalan terus dengan <code>out</code> kosong. <i>Penanganan:</i> pisahkan deklarasi
+  &amp; penugasan lalu periksa —
+  <code>local out; out="$(cmd)" || die "gagal"</code> (pola ini juga alasan
+  <code>shellcheck</code> SC2155 menyarankan memisah <code>declare</code> dari
+  assignment, seperti yang saya terapkan pada <code>sysreport.sh</code>).</li>
+</ol>
+<p class="muted small">Situasi lain: perintah di dalam <i>pipe</i> selain yang
+terakhir (ditangani <code>pipefail</code>), dan fungsi yang dipanggil di konteks
+kondisi.</p>
+
+<h3>5.2 Agregat yang menyesatkan</h3>
+<p>Proksi <b>Change Failure Rate = 18,40%</b> (92 dari 500). Angka agregat tunggal
+ini menyesatkan karena menyamarkan <b>sebaran per endpoint</b>: dari JOB 2,
+kegagalan &ge;500 terkonsentrasi di <code>/health</code> (30) dan
+<code>/api/users</code> (23), sementara <code>/api/orders</code> (18) relatif lebih
+rendah. Jika tim hanya melihat "18%", mereka tidak tahu <i>harus memperbaiki yang
+mana lebih dulu</i>. <b>Metrik tambahan yang lebih berguna:</b> <i>failure rate
+per endpoint</i> = (jumlah &ge;500 pada endpoint ÷ total permintaan endpoint) × 100%
+— mengurutkan prioritas perbaikan ke endpoint dengan rasio gagal tertinggi
+relatif terhadap trafiknya. (Alternatif lain: error-count berbobot latensi, agar
+endpoint lambat <i>dan</i> gagal naik prioritas.)</p>
+
+<h3>5.3 CLI versus GUI</h3>
+<p>CLI menjadi prasyarat otomasi karena tiga sifat:</p>
+<ul>
+  <li><b>Reproducibility</b> — perintah/skrip memberi hasil sama di mesin mana pun
+  (berkat FHS &amp; exit code), berbeda dengan klik GUI yang sulit diulang persis.</li>
+  <li><b>Auditability</b> — setiap perintah terekam (history, log terstruktur,
+  diff commit); siapa mengubah apa dapat ditelusuri.</li>
+  <li><b>Version control</b> — skrip adalah teks yang bisa di-<i>diff</i>, ditinjau
+  via pull request, dan di-<i>rollback</i> — fondasi Infrastructure as Code.</li>
+</ul>
+<p><b>Situasi GUI tetap lebih tepat:</b> eksplorasi/analisis visual data yang
+belum terstruktur — mis. membaca <b>dashboard observability</b> (Grafana) untuk
+mengenali pola anomali lintas waktu, atau desain antarmuka. Di sini persepsi
+visual manusia lebih cepat daripada membaca angka mentah di terminal.</p>
+
+<h3>5.4 Least privilege pada otomasi</h3>
+<p>Saran menjalankan <code>setup.sh</code> dengan <code>sudo</code> + memberi
+<code>chmod 777</code> pada seluruh direktori aplikasi <b>berbahaya</b>:</p>
+<ul>
+  <li><b>Risiko <code>777</code>:</b> setiap pengguna/proses (termasuk malware yang
+  berhasil masuk) dapat <i>menulis ulang kode sumber</i>, membaca berkas kredensial,
+  atau menyisipkan <i>backdoor</i> — pelanggaran total least privilege.</li>
+  <li><b>Risiko <code>sudo</code>/root:</b> bila aplikasi punya celah (mis. RCE),
+  penyerang otomatis memperoleh hak setingkat administrator atas host.</li>
+</ul>
+<p><b>Dua mekanisme pengganti</b> yang menyelesaikan "Permission denied" tanpa
+menaikkan hak:</p>
+<ol>
+  <li><b>Kepemilikan yang benar + izin minimal</b> — jadikan user aplikasi sebagai
+  pemilik direktori lalu <code>chmod 750</code> (atau <code>700</code> untuk berkas
+  rahasia <code>600</code>). Masalah akses selesai tanpa membuka ke "Other".</li>
+  <li><b>Isolasi lingkungan per-pengguna</b> — gunakan <i>virtual environment</i>
+  di direktori milik user (seperti <code>.venv</code> pada skrip ini) sehingga
+  instalasi dependensi tidak butuh akses global/<code>sudo</code> sama sekali
+  (menghindari galat <code>externally-managed-environment</code>).</li>
+</ol>
+
+<h3>5.5 Idempotensi</h3>
+<p>Masing-masing skrip dijalankan tiga kali berturut-turut:</p>
+<table class="small">
+  <tr><th>Skrip</th><th>Idempotent?</th><th>Bukti/alasan</th></tr>
+  <tr><td><code>sysreport.sh</code></td><td class="ok">YA</td><td>Bersifat read-only (hanya membaca df/free/ps). Tiga kali eksekusi memberi struktur keluaran &amp; exit code sama (0); tidak mengubah state sistem.</td></tr>
+  <tr><td><code>setup.sh</code></td><td>Sebagian / terjaga</td><td>Pembuatan venv &amp; instalasi dipandu guard (<code>[ -d .venv ] ||</code>, pin versi) sehingga aman diulang. Namun langkah "jalankan app" mengikat port; eksekusi kedua saat app masih hidup <b>gagal cepat</b> lewat <code>port_is_free ... || die</code> — gagal terkendali, bukan merusak state.</td></tr>
+</table>
+<p>Idempotensi menjadi syarat mutlak pada <b>Infrastructure as Code</b> (minggu
+ke-12): tool seperti Ansible/Terraform menjalankan deklarasi berulang kali dan
+harus <b>konvergen ke state yang sama</b> tanpa efek samping ganda. Skrip yang
+tidak idempotent akan menggandakan sumber daya atau merusak konfigurasi saat
+dijalankan ulang oleh pipeline.</p>
+
+<!-- 6 KESIMPULAN -->
+<h2 class="section">6. Kesimpulan</h2>
+<ul>
+  <li>Penyebab galat ditemukan murni dari CLI: kegagalan &ge;500 sebesar
+  <b>18,40%</b> terkonsentrasi di <code>/health</code> &amp; <code>/api/users</code>
+  (JOB 2) — tanpa dashboard apa pun.</li>
+  <li>Proses didiagnosis &amp; dihentikan <b>anggun</b> (SIGTERM setelah verifikasi
+  PID); hilangnya <code>LISTEN :5000</code> membuktikan penghentian (JOB 3).</li>
+  <li>Prosedur manual diubah menjadi skrip <b>modular</b> dengan fungsi, getopts,
+  validasi, &amp; exit code bermakna (0/1/2), lolos <code>shellcheck</code> (JOB 4).</li>
+  <li><code>setup.sh</code> direfaktor berpustaka <code>lib/common.sh</code> +
+  logging bertimestamp — bentuk awal Infrastructure as Code (JOB 5).</li>
+  <li>Bonus <b>Health Watcher</b> memantau ketersediaan &amp; menghitung MTTR
+  (6 detik, availability 66,67%, exit 2) — menyambung metrik DORA Minggu 1.</li>
+</ul>
+
+<!-- 7 LAMPIRAN -->
+<h2 class="section">7. Lampiran</h2>
+
+<h3>Lampiran B.1 — <code>buat-log.sh</code></h3>
+<pre>#!/usr/bin/env bash
+# buat-log.sh — Generator log sintetis (reproducible) untuk latihan analisis.
+set -euo pipefail
+OUT="${1:-app.log}"
+IPS=(10.10.0.11 10.10.0.12 10.10.0.13 172.16.4.7 192.168.5.20)
+PATHS=(/health /api/orders /api/users /static/app.js)
+CODES=(200 200 200 200 201 301 404 404 500 502)
+: &gt; "$OUT"
+for _ in $(seq 1 500); do
+  ts=$(date -d "-$((RANDOM % 1440)) minutes" '+%d/%b/%Y:%H:%M:%S %z')
+  ip=${IPS[$((RANDOM % ${#IPS[@]}))]}
+  p=${PATHS[$((RANDOM % ${#PATHS[@]}))]}
+  c=${CODES[$((RANDOM % ${#CODES[@]}))]}
+  ms=$((RANDOM % 1200 + 5))
+  echo "$ip - - [$ts] \"GET $p HTTP/1.1\" $c $ms" &gt;&gt; "$OUT"
+done
+echo "Dibuat: $OUT ($(wc -l &lt; "$OUT") baris)"</pre>
+
+<h3 class="section">Lampiran B.2 — <code>sysreport.sh</code></h3>
+<pre>#!/usr/bin/env bash
+# sysreport.sh — Laporan kesehatan sistem ringkas untuk kebutuhan operasional.
+set -euo pipefail
+SCRIPT_NAME="$(basename "$0")"; readonly SCRIPT_NAME
+readonly VERSION="1.0.0"
+THRESHOLD_DISK=80
+FORMAT="text"
+log() { printf '[%s] %s\n' "$(date '+%H:%M:%S')" "$*" &gt;&amp;2; }
+die() { log "GALAT: $*"; exit 1; }
+usage() {
+  cat &lt;&lt;USAGE
+$SCRIPT_NAME v$VERSION — laporan kesehatan sistem
+Penggunaan: $SCRIPT_NAME [OPSI]
+  -d N   Ambang peringatan pemakaian disk dalam persen (default: 80)
+  -j     Keluarkan hasil dalam format JSON
+  -h     Tampilkan bantuan ini
+Exit code: 0 = sehat, 2 = melewati ambang, 1 = galat penggunaan
+USAGE
+}
+disk_usage_pct() { df -P / | awk 'NR==2 { gsub("%","",$5); print $5 }'; }
+mem_used_pct()  { free | awk '/^Mem:/ { printf "%.0f", $3/$2*100 }'; }
+proc_count()    { ps -e --no-headers | wc -l; }
+main() {
+  local disk mem procs status opt
+  while getopts ":d:jh" opt; do
+    case "$opt" in
+      d) THRESHOLD_DISK="$OPTARG" ;;
+      j) FORMAT="json" ;;
+      h) usage; exit 0 ;;
+      :) usage &gt;&amp;2; die "opsi -$OPTARG membutuhkan argumen" ;;
+      \?) usage &gt;&amp;2; die "opsi tidak dikenal: -$OPTARG" ;;
+    esac
+  done
+  [[ "$THRESHOLD_DISK" =~ ^[0-9]+$ ]] || die "ambang disk harus berupa angka"
+  disk="$(disk_usage_pct)"; mem="$(mem_used_pct)"; procs="$(proc_count)"
+  status="OK"; ((disk &gt;= THRESHOLD_DISK)) &amp;&amp; status="PERINGATAN"
+  if [[ "$FORMAT" == "json" ]]; then
+    printf '{"host":"%s","disk_pct":%s,"mem_pct":%s,"proc":%s,"status":"%s"}\n' \
+      "$(hostname)" "$disk" "$mem" "$procs" "$status"
+  else
+    printf '%-20s : %s\n'   'Host'             "$(hostname)"
+    printf '%-20s : %s%%\n' 'Pemakaian disk'   "$disk"
+    printf '%-20s : %s%%\n' 'Pemakaian memori' "$mem"
+    printf '%-20s : %s\n'   'Jumlah proses'    "$procs"
+    printf '%-20s : %s\n'   'Status'           "$status"
+  fi
+  [[ "$status" == "OK" ]] || return 2
+}
+main "$@"</pre>
+
+<h3 class="section">Lampiran B.3 — <code>setup.sh</code> (modular, Minggu 2)</h3>
+<pre>#!/usr/bin/env bash
+# setup.sh — versi MODULAR: fungsi bersama di lib/common.sh + logging terstruktur.
+set -euo pipefail
+APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &amp;&amp; pwd)"
+# shellcheck source=lib/common.sh disable=SC1091
+source "$APP_DIR/lib/common.sh"
+VENV_DIR="$APP_DIR/.venv"
+PORT="${PORT:-5000}"
+log_info "[1/5] Memeriksa prasyarat..."
+require_cmd python3
+require_cmd curl
+python3 -c 'import sys; sys.exit(0 if sys.version_info &gt;= (3, 10) else 1)' \
+  || die "dibutuhkan Python 3.10 atau lebih baru"
+port_is_free "$PORT" || die "port $PORT sudah dipakai proses lain"
+log_info "[2/5] Menyiapkan virtual environment..."
+[ -d "$VENV_DIR" ] || python3 -m venv "$VENV_DIR"
+# shellcheck source=/dev/null
+source "$VENV_DIR/bin/activate"
+log_info "[3/5] Memasang dependensi terkunci..."
+pip install --quiet --upgrade pip
+pip install --quiet -r "$APP_DIR/requirements.txt"
+log_info "[4/5] Menjalankan aplikasi pada port $PORT..."
+PORT="$PORT" python3 "$APP_DIR/src/app.py" &amp;
+APP_PID=$!
+trap 'kill "$APP_PID" 2&gt;/dev/null || true' EXIT
+log_info "[5/5] Melakukan smoke test..."
+ok=0
+for i in 1 2 3 4 5; do
+  if curl -fsS "http://127.0.0.1:$PORT/health" &gt;/dev/null 2&gt;&amp;1; then ok=1; break; fi
+  log_warn "  percobaan $i/5 belum berhasil, menunggu 2 detik..."
+  sleep 2
+done
+[ "$ok" -eq 1 ] &amp;&amp; log_info "SUKSES: lulus health check (PID $APP_PID, port $PORT)." || die "tidak merespons health check"
+log_info "Aplikasi aktif di http://127.0.0.1:$PORT/ (Ctrl+C untuk berhenti)."
+wait "$APP_PID"</pre>
+
+<h3 class="section">Lampiran B.4 — <code>lib/common.sh</code></h3>
+<pre>#!/usr/bin/env bash
+# lib/common.sh — Pustaka fungsi bersama (logging & validasi).
+LOG_FILE="${LOG_FILE:-/tmp/sentra-deploy.log}"
+_ts() { date '+%Y-%m-%dT%H:%M:%S%z'; }
+log_info()  { printf '%s [INFO ] %s\n' "$(_ts)" "$*" | tee -a "$LOG_FILE" &gt;&amp;2; }
+log_warn()  { printf '%s [WARN ] %s\n' "$(_ts)" "$*" | tee -a "$LOG_FILE" &gt;&amp;2; }
+log_error() { printf '%s [ERROR] %s\n' "$(_ts)" "$*" | tee -a "$LOG_FILE" &gt;&amp;2; }
+die() { log_error "$*"; exit 1; }
+require_cmd() { command -v "$1" &gt;/dev/null 2&gt;&amp;1 || die "perkakas wajib tidak ditemukan: $1"; }
+port_is_free() { ! ss -ltn "sport = :$1" 2&gt;/dev/null | grep -q LISTEN; }</pre>
+
+<h3 class="section">Lampiran B.5 — <code>healthwatch.sh</code> (Challenge)</h3>
+<pre>#!/usr/bin/env bash
+# healthwatch.sh — CHALLENGE "Health Watcher": pantau /health, MTTR, ringkasan sesi.
+set -euo pipefail
+INTERVAL=5
+URL="http://127.0.0.1:5000/health"
+LOG_FILE="${LOG_FILE:-/tmp/healthwatch.log}"
+CHECKS=0; INCIDENTS=0; TOTAL_DOWN=0; DOWN_SINCE=0; PREV_STATE="UP"
+usage() {
+  cat &lt;&lt;USAGE
+healthwatch.sh — pemantau endpoint /health
+  --interval N   Jeda antar pemeriksaan (detik, default 5, &gt; 0)
+  --url URL      URL dipantau (default $URL)
+  -h, --help     Bantuan
+Exit: 0 tanpa insiden, 2 bila ada insiden
+USAGE
+}
+die() { echo "GALAT: $*" &gt;&amp;2; exit 1; }
+iso_now() { date '+%Y-%m-%dT%H:%M:%S%z'; }
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --interval) [[ $# -ge 2 ]] || die "--interval butuh nilai"; INTERVAL="$2"; shift 2 ;;
+    --url)      [[ $# -ge 2 ]] || die "--url butuh nilai"; URL="$2"; shift 2 ;;
+    -h|--help)  usage; exit 0 ;;
+    *) usage &gt;&amp;2; die "argumen tidak dikenal: $1" ;;
+  esac
+done
+[[ "$INTERVAL" =~ ^[0-9]+$ ]] || die "--interval harus bilangan bulat"
+((INTERVAL &gt; 0)) || die "--interval harus &gt; 0"
+[[ "$URL" =~ ^https?:// ]] || die "--url harus http(s)://"
+print_summary() {
+  echo; echo "===== RINGKASAN SESI HEALTH WATCHER ====="
+  local avail="100.00"
+  ((DOWN_SINCE &gt; 0)) &amp;&amp; TOTAL_DOWN=$((TOTAL_DOWN + ($(date +%s) - DOWN_SINCE)))
+  local total=$((CHECKS * INTERVAL))
+  ((total &gt; 0)) &amp;&amp; avail=$(awk -v d="$TOTAL_DOWN" -v t="$total" 'BEGIN{printf "%.2f",(t-d)/t*100}')
+  printf '%-24s : %s\n' "Jumlah pemeriksaan" "$CHECKS"
+  printf '%-24s : %s\n' "Jumlah insiden" "$INCIDENTS"
+  printf '%-24s : %s detik\n' "Total waktu padam" "$TOTAL_DOWN"
+  printf '%-24s : %s%%\n' "Ketersediaan" "$avail"
+  ((INCIDENTS &gt; 0)) &amp;&amp; exit 2 || exit 0
+}
+trap print_summary SIGINT
+echo "Memantau $URL setiap ${INTERVAL}s — Ctrl+C untuk berhenti."; : &gt; "$LOG_FILE"
+while true; do
+  s=$(date +%s%N)
+  if curl -fsS --max-time "$INTERVAL" "$URL" &gt;/dev/null 2&gt;&amp;1; then state="UP"; else state="DOWN"; fi
+  e=$(date +%s%N); rt_ms=$(((e-s)/1000000)); CHECKS=$((CHECKS+1))
+  printf '%s status=%s rt_ms=%s\n' "$(iso_now)" "$state" "$rt_ms" | tee -a "$LOG_FILE"
+  if [[ "$state" == "DOWN" &amp;&amp; "$PREV_STATE" == "UP" ]]; then
+    DOWN_SINCE=$(date +%s); INCIDENTS=$((INCIDENTS+1))
+    echo "  !! INSIDEN #$INCIDENTS dimulai $(iso_now)" | tee -a "$LOG_FILE"
+  elif [[ "$state" == "UP" &amp;&amp; "$PREV_STATE" == "DOWN" ]]; then
+    m=$(( $(date +%s) - DOWN_SINCE )); TOTAL_DOWN=$((TOTAL_DOWN+m)); DOWN_SINCE=0
+    echo "  &gt;&gt; PULIH $(iso_now) — MTTR: ${m} detik" | tee -a "$LOG_FILE"
+  fi
+  PREV_STATE="$state"; sleep "$INTERVAL"
+done</pre>
+
+<h3 class="section">Lampiran E — Bukti &amp; Tautan (diisi mahasiswa)</h3>
+<h4>E.1 — <code>ringkasan-log.txt</code> (hasil nyata JOB 2)</h4>
+<pre>=== Ringkasan Analisis Log 2026-10-04 07:22:40 ===
+Total permintaan : 500
+--- Sebaran kode status ---
+    205 200 | 97 404 | 59 301 | 56 502 | 47 201 | 36 500
+--- Endpoint paling sering gagal (&ge;500) ---
+    30 /health | 23 /api/users | 21 /static/app.js | 18 /api/orders
+Proksi Change Failure Rate: 18.40% (92 dari 500)</pre>
+<h4>E.2 — Tautan &amp; screenshot</h4>
+<table class="kv small">
+  <tr><th>Item</th><th>Isi</th></tr>
+  <tr><td>Tautan repository GitHub (private)</td><td>https://github.com/________/praktikum-devops-m01</td></tr>
+  <tr><td>Collaborator dosen</td><td>Antoni Haikal (antoni@polibatam.ac.id) — ditambahkan: ☐</td></tr>
+</table>
+<div class="placeholder">[ Screenshot keluaran <code>shellcheck</code> bersih untuk ketiga skrip ]</div>
+<div class="placeholder">[ Screenshot keluaran <code>sysreport.sh</code> + tabel exit code ]</div>
+<div class="placeholder">[ Cuplikan <code>/tmp/sentra-deploy.log</code> &amp; ringkasan Health Watcher ]</div>
+
+<p class="muted small" style="margin-top:24px">— Selesai —</p>
+</body>
+</html>

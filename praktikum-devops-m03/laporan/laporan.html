@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<title>Laporan Praktikum DevOps M03 — Cikal Pratama</title>
+<style>
+  @page {
+    size: A4; margin: 22mm 20mm 20mm 20mm;
+    @bottom-center { content: "Laporan Praktikum DevOps — Minggu ke-3 (JS-DVO-03)"; font-size: 8pt; color: #8a8f98; }
+    @bottom-right  { content: "Hal. " counter(page) " / " counter(pages); font-size: 8pt; color: #8a8f98; }
+  }
+  @page :first { @bottom-center { content: ""; } @bottom-right { content: ""; } }
+  * { box-sizing: border-box; }
+  body { font-family: "DejaVu Serif", Georgia, serif; font-size: 10.5pt; line-height: 1.55; color: #1c2128; margin: 0; }
+  h1,h2,h3,h4 { font-family: "DejaVu Sans", Arial, sans-serif; color: #3a2a6d; line-height: 1.25; }
+  h2 { font-size: 15pt; margin-top: 1.6em; border-bottom: 2px solid #5b3fb5; padding-bottom: 4px; }
+  h3 { font-size: 12pt; margin-top: 1.2em; color: #5b3fb5; }
+  h4 { font-size: 10.5pt; margin: .9em 0 .3em; color: #6f52c9; }
+  p { margin: .5em 0; text-align: justify; }
+  ul, ol { margin: .4em 0 .6em; padding-left: 1.3em; } li { margin: .18em 0; }
+  code, pre { font-family: "DejaVu Sans Mono", monospace; }
+  code { background: #eee9f6; padding: 1px 4px; border-radius: 3px; font-size: 8.6pt; }
+  /* Blok "screenshot" terminal */
+  .term { background: #1a1230; color: #e6def7; padding: 9px 12px; border-radius: 7px 7px 0 0;
+          font-family: "DejaVu Sans Mono", monospace; font-size: 7.9pt; line-height: 1.42;
+          white-space: pre-wrap; word-wrap: break-word; border: 1px solid #2c2050; border-bottom: none; }
+  .term .t { color: #9b8cff; } /* prompt/komentar */
+  figure { margin: 1em 0; page-break-inside: avoid; }
+  figcaption { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 8.2pt; color: #4a4458;
+               background: #efeaf8; border: 1px solid #2c2050; border-top: 2px solid #5b3fb5;
+               padding: 6px 10px; border-radius: 0 0 7px 7px; }
+  figcaption b { color: #3a2a6d; }
+  pre.code { background: #1a1230; color: #e6def7; padding: 10px 12px; border-radius: 6px; font-size: 8pt; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word; }
+  table { border-collapse: collapse; width: 100%; margin: .6em 0 1em; font-size: 9pt; }
+  th, td { border: 1px solid #c4ccd4; padding: 5px 7px; text-align: left; vertical-align: top; }
+  th { background: #3a2a6d; color: #fff; font-family: "DejaVu Sans", Arial, sans-serif; font-weight: 600; }
+  tr:nth-child(even) td { background: #f4f1fa; }
+  .muted { color: #5a636e; } .small { font-size: 8.6pt; }
+  .tag { display: inline-block; background: #5b3fb5; color: #fff; font-size: 8pt; padding: 1px 8px; border-radius: 10px; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .note { background: #fff8e1; border-left: 4px solid #e0a800; padding: 8px 12px; font-size: 9pt; margin: .8em 0; border-radius: 0 4px 4px 0; }
+  .callout { background: #f1ecfb; border-left: 4px solid #5b3fb5; padding: 8px 12px; font-size: 9.2pt; margin: .8em 0; border-radius: 0 4px 4px 0; }
+  .placeholder { border: 1.5px dashed #9aa4ae; border-radius: 6px; padding: 20px; text-align: center; color: #6b7480; font-family: "DejaVu Sans", Arial, sans-serif; font-size: 9pt; margin: .5em 0; }
+  .cover { text-align: center; padding-top: 40mm; page-break-after: always; }
+  .cover .kop { font-family: "DejaVu Sans", Arial, sans-serif; letter-spacing: 1px; color: #5b3fb5; }
+  .cover h1 { font-size: 24pt; margin: 18px 0 6px; }
+  .cover .sub { font-size: 13pt; color: #6f52c9; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .idbox { margin: 40px auto 0; width: 82%; border: 1px solid #c4ccd4; border-radius: 8px; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .idbox table { margin: 0; font-size: 10pt; } .idbox td { border: none; border-bottom: 1px solid #e3e8ed; padding: 8px 14px; }
+  .idbox td:first-child { color: #5a636e; width: 38%; }
+  .section { page-break-before: always; }
+  .kv td:first-child { width: 45%; color: #33404c; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .ok { color: #1a7f37; font-weight: bold; } .bad { color: #b42318; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="kop">POLITEKNIK NEGERI BATAM<br/>PROGRAM STUDI REKAYASA KEAMANAN SIBER</div>
+  <div style="margin-top:28px" class="tag">JS-DVO-03 · Pertemuan Minggu ke-3</div>
+  <h1>Laporan Praktikum DevOps</h1>
+  <div class="sub">Version Control (Basic):<br/>Git Fundamental, Workflow, &amp; Konfigurasi Repository</div>
+  <div class="idbox">
+    <table>
+      <tr><td>Nama Mahasiswa</td><td><b>Cikal Pratama</b></td></tr>
+      <tr><td>NIM</td><td><b>4332511053</b></td></tr>
+      <tr><td>Mata Kuliah</td><td>DevOps (RKS305) — 3 SKS</td></tr>
+      <tr><td>Program Studi / Semester</td><td>Rekayasa Keamanan Siber / 3</td></tr>
+      <tr><td>Dosen Pengampu</td><td>Antoni Haikal</td></tr>
+      <tr><td>Prasyarat</td><td>JS-DVO-01 &amp; JS-DVO-02 — selesai</td></tr>
+      <tr><td>Berkas</td><td>M03_4332511053_Cikal Pratama.pdf</td></tr>
+    </table>
+  </div>
+  <p style="margin-top:46px" class="muted small">Tahun Akademik 2026/2027</p>
+</div>
+
+<!-- DAFTAR ISI -->
+<h2>Daftar Isi</h2>
+<div class="small">
+<ol>
+  <li>Tujuan &amp; Ringkasan Capaian</li>
+  <li>Dasar Teori Ringkas (Snapshot, Tiga Area, Koreksi Riwayat)</li>
+  <li>Hasil Pelaksanaan
+    <ol>
+      <li>JOB 1 — Konfigurasi Git &amp; Autentikasi SSH</li>
+      <li>JOB 2 — Tiga Area Kerja &amp; Siklus Commit</li>
+      <li>JOB 3 — Anatomi Objek &amp; Penelusuran Riwayat</li>
+      <li>JOB 4 — amend, restore, reset, revert, reflog</li>
+      <li>JOB 5 — Menata Repository &amp; Menandai Rilis</li>
+    </ol>
+  </li>
+  <li>Bonus Challenge — "Gerbang Mutu Sebelum Commit"</li>
+  <li>Jawaban Pertanyaan Analisis (4.1)</li>
+  <li>Kesimpulan</li>
+  <li>Lampiran (kode hook, tautan, screenshot)</li>
+</ol>
+</div>
+<div class="note"><b>Catatan keterbukaan &amp; cara baca gambar.</b> Setiap keluaran
+terminal ditampilkan sebagai <b>Gambar</b> bergaya screenshot dan <u>disertai
+penjelasan tepat di bawahnya</u>. Seluruh keluaran berasal dari <b>eksekusi nyata</b>
+pada repo latihan lokal, sehingga hash commit &amp; stempel waktu akan berbeda saat
+Anda menjalankannya. Keluaran <code>ssh -T git@github.com</code> adalah keluaran
+<i>yang diharapkan</i> setelah kunci publik Anda terdaftar di GitHub.</div>
+
+<!-- 1 TUJUAN -->
+<h2 class="section">1. Tujuan &amp; Ringkasan Capaian</h2>
+<p>Sebelum tim lain bergabung (Minggu 4), fondasi manajemen konfigurasi proyek
+Sentra Digital Batam dibenahi: <b>mengamankan autentikasi (SSH)</b>, memahami
+dampak tiap perintah Git terhadap tiga area kerja, serta <b>menata repository</b>
+agar layak dikerjakan bersama dan bebas kredensial.</p>
+<table>
+  <tr><th>Kode</th><th>Rumusan</th><th>Status</th></tr>
+  <tr><td>Sub-CPMK 3.1</td><td>Model data Git (snapshot; blob/tree/commit) &amp; tiga area kerja.</td><td class="ok">Tercapai (JOB 2–3)</td></tr>
+  <tr><td>Sub-CPMK 3.2</td><td>Identitas Git + autentikasi kunci SSH dengan izin least privilege.</td><td class="ok">Tercapai (JOB 1)</td></tr>
+  <tr><td>Sub-CPMK 3.3</td><td>Siklus dasar Git + pesan Conventional Commits.</td><td class="ok">Tercapai (JOB 2,5)</td></tr>
+  <tr><td>Sub-CPMK 3.4</td><td>Dampak amend/restore/revert/reset &amp; pemulihan via reflog.</td><td class="ok">Tercapai (JOB 4)</td></tr>
+  <tr><td>Sub-CPMK 3.5</td><td>Repository tertata: README, .gitignore, tag v1.0.0, bebas kredensial.</td><td class="ok">Tercapai (JOB 5)</td></tr>
+</table>
+
+<!-- 2 DASAR TEORI -->
+<h2 class="section">2. Dasar Teori Ringkas</h2>
+<p><b>Git menyimpan snapshot, bukan selisih.</b> Tiap <code>commit</code> menyimpan
+snapshot utuh; berkas yang tak berubah tidak disalin ulang melainkan dirujuk.
+Semua data dibangun dari tiga objek yang di-hash (SHA-1) dari isinya:</p>
+<table class="small">
+  <tr><th>Objek</th><th>Fungsi</th></tr>
+  <tr><td><code>blob</code></td><td>Isi berkas (konten mentah, tanpa nama/path).</td></tr>
+  <tr><td><code>tree</code></td><td>Struktur folder: nama berkas + pointer ke blob/tree lain.</td></tr>
+  <tr><td><code>commit</code></td><td>Pointer ke tree, pointer ke parent, penulis, waktu, pesan.</td></tr>
+</table>
+<p>Karena tiap commit menunjuk parent-nya, riwayat membentuk <b>DAG</b>. Konsekuensi:
+(1) <b>integritas terjamin</b> — ubah 1 byte → seluruh hash turunan berubah (penting
+untuk audit trail/IaC); (2) <b>operasi cepat</b> — branching hanya membuat pointer,
+dasar seluruh strategi branching Minggu 4.</p>
+
+<h3>Tiga area kerja</h3>
+<table class="small">
+  <tr><th>Area</th><th>Isi</th><th>Dipindahkan oleh</th></tr>
+  <tr><td>Working directory</td><td>Berkas yang sedang disunting</td><td>—</td></tr>
+  <tr><td>Staging area (index)</td><td>Perubahan terpilih untuk commit berikutnya</td><td><code>git add</code></td></tr>
+  <tr><td>Repository (.git)</td><td>Commit tersimpan permanen (snapshot)</td><td><code>git commit</code></td></tr>
+</table>
+<p>Staging memungkinkan <b>commit atomik</b> (satu commit, satu perubahan logis) —
+mempercepat <code>revert</code>/<code>bisect</code>, berdampak langsung pada
+<b>MTTR</b> (metrik DORA Minggu 1).</p>
+
+<h3>Koreksi riwayat &amp; aturan branch bersama</h3>
+<table class="small">
+  <tr><th>Perintah</th><th>Working Dir</th><th>Staging</th><th>Riwayat</th><th>Aman di branch bersama?</th></tr>
+  <tr><td><code>git restore &lt;berkas&gt;</code></td><td>Ditimpa</td><td>—</td><td>—</td><td>Ya (lokal)</td></tr>
+  <tr><td><code>git commit --amend</code></td><td>—</td><td>Dikosongkan</td><td>Ditulis ulang</td><td class="bad">TIDAK</td></tr>
+  <tr><td><code>git reset --soft</code></td><td>—</td><td>Dipertahankan</td><td>Pointer mundur</td><td class="bad">TIDAK</td></tr>
+  <tr><td><code>git reset --mixed</code></td><td>—</td><td>Dikosongkan</td><td>Pointer mundur</td><td class="bad">TIDAK</td></tr>
+  <tr><td><code>git reset --hard</code></td><td class="bad">DIHAPUS</td><td>Dikosongkan</td><td>Pointer mundur</td><td class="bad">TIDAK</td></tr>
+  <tr><td><code>git revert</code></td><td>—</td><td>—</td><td>+ commit baru</td><td class="ok">YA</td></tr>
+</table>
+<p><code>git reflog</code> mencatat pergerakan HEAD (~90 hari) sehingga commit yang
+"hilang" akibat <code>reset --hard</code> bisa dipulihkan — <b>namun</b> tidak
+menyelamatkan perubahan yang belum pernah di-commit, dan tidak menghapus kredensial
+yang terlanjur ter-commit (→ wajib <b>rotasi</b>).</p>
+
+<!-- 3 HASIL -->
+<h2 class="section">3. Hasil Pelaksanaan</h2>
+
+<h3>3.1 JOB 1 — Konfigurasi Git &amp; Autentikasi SSH</h3>
+<figure>
+<div class="term"><span class="t">$ git --version</span>
+git version 2.39.5
+
+<span class="t">$ ssh-keygen -t ed25519 -C "4332511053@students.polibatam.ac.id" -f id_ed25519_polibatam</span>
+id_ed25519_polibatam
+id_ed25519_polibatam.pub
+
+<span class="t">--- amankan izin (least privilege) ---</span>
+600 id_ed25519_polibatam        <span class="t"># kunci PRIVAT: hanya pemilik</span>
+644 id_ed25519_polibatam.pub    <span class="t"># kunci PUBLIK: boleh dibaca</span>
+
+<span class="t">$ cat id_ed25519_polibatam.pub  (yang didaftarkan ke GitHub)</span>
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFpUNDnjXH+orj2y85qOtlcJmQkl840wuX3hTd7mw/Fy 4332511053@students.polibatam.ac.id
+
+<span class="t">$ ssh -T git@github.com  (keluaran yang DIHARAPKAN)</span>
+Hi Cikal-Pratama! You've successfully authenticated, but GitHub does not provide shell access.</div>
+<figcaption><b>Gambar 1.</b> Pembuatan kunci SSH Ed25519 &amp; pengamanan izin.
+<b>Penjelasan:</b> dihasilkan sepasang kunci — <code>id_ed25519_polibatam</code>
+(privat) dan <code>.pub</code> (publik). Izin diatur <b>600</b> untuk kunci privat
+(hanya pemilik; SSH menolak kunci yang lebih longgar) dan <b>644</b> untuk kunci
+publik. Hanya berkas <code>.pub</code> yang ditempel ke <i>GitHub → Settings → SSH
+keys</i>. Baris terakhir adalah sambutan yang menandakan autentikasi SSH berhasil.</figcaption>
+</figure>
+<p>Remote repo Minggu 1 lalu dialihkan dari HTTPS ke SSH:
+<code>git remote set-url origin git@github.com:&lt;username&gt;/praktikum-devops-m01.git</code>,
+diverifikasi dengan <code>git fetch</code> yang kini berjalan <b>tanpa meminta
+username/token</b> — keuntungan besar untuk otomasi CI/CD nanti.</p>
+
+<h3 class="section">3.2 JOB 2 — Tiga Area Kerja &amp; Siklus Commit</h3>
+<figure>
+<div class="term"><span class="t">$ echo '# Lab Git' &gt; README.md ; git status --short</span>
+?? README.md
+<span class="t">$ git add README.md ; git status --short</span>
+A  README.md
+<span class="t">$ git commit -m 'docs: tambahkan README awal'</span>
+[main (root-commit) 4fae633] docs: tambahkan README awal
+ 1 file changed, 1 insertion(+)</div>
+<figcaption><b>Gambar 2.</b> Perpindahan berkas antar-area.
+<b>Penjelasan:</b> kode dua huruf pada <code>git status --short</code> menandakan
+area: <code>??</code> = <i>untracked</i> (hanya di working directory),
+<code>A</code> (kolom kiri) = sudah masuk <b>staging</b> setelah <code>git add</code>,
+dan <code>git commit</code> memindahkannya menjadi snapshot permanen di repository.</figcaption>
+</figure>
+<figure>
+<div class="term"><span class="t">$ git status --short   (setelah edit lagi berkas yang sudah di-stage)</span>
+AM catatan.txt
+<span class="t">$ git diff            (working dir  VS  staging)</span>
+@@ -1 +1,2 @@
+ baris pertama
++baris kedua
+<span class="t">$ git diff --staged   (staging  VS  repository)</span>
+@@ -0,0 +1 @@
++baris pertama
+<span class="t">$ git check-ignore -v build/hasil.bin</span>
+.gitignore:1:build/	build/hasil.bin</div>
+<figcaption><b>Gambar 3.</b> Beda <code>diff</code> vs <code>diff --staged</code> &amp;
+efek <code>.gitignore</code>. <b>Penjelasan:</b> <code>AM</code> berarti berkas
+sudah di-stage (<code>A</code>) <i>tetapi</i> working dir berubah lagi (<code>M</code>).
+<code>git diff</code> membandingkan <b>working dir vs staging</b> (menampilkan
+"baris kedua" yang belum di-stage), sedangkan <code>git diff --staged</code>
+membandingkan <b>staging vs repository</b> (hanya "baris pertama").
+<code>git check-ignore -v</code> membuktikan berkas <code>build/hasil.bin</code>
+diblokir oleh aturan baris 1 <code>.gitignore</code>.</figcaption>
+</figure>
+
+<h3 class="section">3.3 JOB 3 — Anatomi Objek &amp; Penelusuran Riwayat</h3>
+<figure>
+<div class="term"><span class="t">$ git cat-file -t HEAD</span>
+commit
+<span class="t">$ git cat-file -p HEAD   (isi objek commit)</span>
+tree e4193b04cf395f9dda3f4650aaf0c182d54fdd9f
+parent 022df79ab2418319a98c5793087cbf47ac4acae8
+author Cikal Pratama &lt;4332511053@students.polibatam.ac.id&gt; ...
+<span class="t">$ git cat-file -p 'HEAD^{tree}'   (daftar blob &amp; tree)</span>
+100644 blob 3fa65dc...    .gitignore
+100644 blob d04ddde...    README.md
+100644 blob a915bb4...    catatan.txt</div>
+<figcaption><b>Gambar 4.</b> Membongkar objek internal Git.
+<b>Penjelasan:</b> objek <code>HEAD</code> bertipe <code>commit</code> yang menunjuk
+sebuah <code>tree</code> (snapshot folder) dan <code>parent</code> (commit induk) —
+inilah pembentuk struktur DAG. <code>tree</code> berisi daftar <code>blob</code>
+(isi berkas) beserta hash-nya, membuktikan commit menyimpan <i>snapshot</i> utuh.</figcaption>
+</figure>
+<figure>
+<div class="term"><span class="t">--- BUKTI SNAPSHOT: hash blob README.md pada dua commit berbeda ---</span>
+Hash blob README.md di HEAD^ : d04dddefa29dba3199ad370a8281076991a390c7
+Hash blob README.md di HEAD  : d04dddefa29dba3199ad370a8281076991a390c7
+=&gt; IDENTIK: Git merujuk objek lama (tidak menyalin ulang)</div>
+<figcaption><b>Gambar 5.</b> Pembuktian snapshot yang efisien.
+<b>Penjelasan:</b> <code>README.md</code> tidak diubah antara dua commit, dan hash
+blob-nya <b>identik</b>. Artinya Git <u>tidak menyalin ulang</u> isi berkas yang
+sama, melainkan hanya merujuk objek lama — sehingga penyimpanan snapshot tetap
+hemat ruang (menjawab Pertanyaan Analisis no. 5).</figcaption>
+</figure>
+
+<h3 class="section">3.4 JOB 4 — amend, restore, reset, revert, reflog</h3>
+<figure>
+<div class="term"><span class="t">$ git log --oneline -n1  (sebelum amend)</span>
+5c314fc feat: tambah baris ketiga
+<span class="t">$ git commit --amend -m "feat: tambahkan baris ketiga pada catatan"</span>
+<span class="t">$ git log --oneline -n1  (sesudah amend — HASH BERUBAH)</span>
+19db6f5 feat: tambahkan baris ketiga pada catatan</div>
+<figcaption><b>Gambar 6.</b> <code>commit --amend</code>.
+<b>Penjelasan:</b> meski hanya pesan yang disunting, <b>hash berubah</b>
+(<code>5c314fc</code> → <code>19db6f5</code>) karena commit adalah snapshot yang
+di-hash dari seluruh isinya (termasuk pesan). Inilah alasan <code>amend</code>
+<b>menulis ulang riwayat</b> dan berbahaya bila commit sudah di-push.</figcaption>
+</figure>
+<figure>
+<div class="term"><span class="t">$ git reset --soft HEAD~1 ; git status --short</span>
+M  log-percobaan.txt      <span class="t"># perubahan tetap di STAGING (kolom kiri)</span>
+<span class="t">$ git reset --mixed HEAD~1 ; git status --short</span>
+ M log-percobaan.txt      <span class="t"># perubahan turun ke WORKING DIR (kolom kanan)</span></div>
+<figcaption><b>Gambar 7.</b> Perbedaan <code>reset --soft</code> vs <code>--mixed</code>.
+<b>Penjelasan:</b> <code>--soft</code> memundurkan pointer commit namun perubahan
+tetap <b>ter-stage</b> (<code>M</code> di kolom kiri). <code>--mixed</code> (default)
+juga mengosongkan staging sehingga perubahan turun ke <b>working directory</b>
+(<code>M</code> di kolom kanan). Keduanya tidak menghapus isi berkas.</figcaption>
+</figure>
+<figure>
+<div class="term"><span class="t">$ git reset --hard HEAD~1 ; git log --oneline -n2  (commit teratas LENYAP)</span>
+d24a68b test: commit percobaan 2
+220efcd test: commit percobaan 1
+<span class="t">$ git reflog -n 4</span>
+d24a68b HEAD@{0}: reset: moving to HEAD~1
+2c51b1e HEAD@{1}: commit: test: commit percobaan 3 (dipulihkan kembali)
+d24a68b HEAD@{2}: reset: moving to HEAD~1
+<span class="t">$ git reset --hard 2c51b1e   (pulihkan dari reflog)</span>
+<span class="t">$ git log --oneline -n2  (commit KEMBALI)</span>
+2c51b1e test: commit percobaan 3 (dipulihkan kembali)
+d24a68b test: commit percobaan 2</div>
+<figcaption><b>Gambar 8.</b> <code>reset --hard</code> &amp; penyelamatan via
+<code>reflog</code>. <b>Penjelasan:</b> <code>--hard</code> membuang commit teratas
+dari riwayat (tampak "hilang"). Namun <code>git reflog</code> masih mencatat
+pergerakan HEAD; hash <code>2c51b1e</code> di <code>HEAD@{1}</code> dipakai untuk
+<code>reset --hard</code> kembali sehingga commit <b>pulih</b>. Ini bukti reflog
+sebagai jaring pengaman untuk pekerjaan yang <i>sudah sempat di-commit</i>.</figcaption>
+</figure>
+<figure>
+<div class="term"><span class="t">$ git revert --no-edit HEAD ; git log --oneline -n3</span>
+d115255 Revert "test: commit percobaan 3 (dipulihkan kembali)"
+2c51b1e test: commit percobaan 3 (dipulihkan kembali)
+d24a68b test: commit percobaan 2</div>
+<figcaption><b>Gambar 9.</b> <code>git revert</code> (koreksi yang beradab).
+<b>Penjelasan:</b> berbeda dari <code>reset</code>, <code>revert</code> <u>tidak
+menghapus</u> commit lama — ia menambah <b>commit pembatal</b> baru (<code>d115255</code>)
+di atasnya. Riwayat tetap utuh &amp; dapat ditelusuri, sehingga ini satu-satunya
+pilihan aman pada branch yang sudah dibagikan ke tim.</figcaption>
+</figure>
+
+<h3 class="section">3.5 JOB 5 — Menata Repository &amp; Menandai Rilis</h3>
+<figure>
+<div class="term"><span class="t">$ git log -p --all | grep -nEi '(ghp_|AKIA|BEGIN .*PRIVATE KEY|password *=)'</span>
+<span class="t">(kosong = bersih, tidak ada kredensial pada SELURUH riwayat)</span>
+
+<span class="t">$ git tag -n</span>
+v1.0.0          Rilis pertama: deployment otomatis dan laporan sistem
+<span class="t">$ git log --oneline --graph --decorate -n 10</span>
+* 7a9b244 (HEAD -&gt; main, tag: v1.0.0) docs: tambahkan panduan penggunaan dan daftar skrip
+* 2f9bd75 chore: lengkapi daftar berkas yang diabaikan
+* 9f6cec0 chore: artefak awal minggu 1-2</div>
+<figcaption><b>Gambar 10.</b> Audit kredensial, commit atomik &amp; tag v1.0.0.
+<b>Penjelasan:</b> pemindaian <code>git log -p --all</code> ke seluruh riwayat
+menghasilkan keluaran <b>kosong</b> → repository bersih dari kredensial. Perubahan
+dipisah menjadi <b>commit atomik</b> berpola Conventional Commits
+(<code>chore:</code>, <code>docs:</code>). Tag beranotasi <b>v1.0.0</b> menandai
+rilis pertama dan tampak melekat pada HEAD di grafik riwayat. Selanjutnya
+<code>git push origin main</code> &amp; <code>git push origin v1.0.0</code>.</figcaption>
+</figure>
+
+<!-- 4 CHALLENGE -->
+<h2 class="section">4. Bonus Challenge — "Gerbang Mutu Sebelum Commit"</h2>
+<p>Dua hook dipasang (kode di Lampiran B): <code>pre-commit</code> (tolak pola
+kredensial + <code>shellcheck</code> berkas <code>.sh</code> ter-stage) dan
+<code>commit-msg</code> (wajibkan Conventional Commits). Keduanya memuat
+<code>set -euo pipefail</code> dan <b>lolos <code>shellcheck</code> bersih</b>.
+Tiga skenario pengujian wajib (hasil nyata):</p>
+<figure>
+<div class="term"><span class="t">=== Skenario A: commit NORMAL (harus DITERIMA) ===</span>
+pre-commit: seluruh pemeriksaan lolos.
+[main (root-commit) 95038a4] docs: tambahkan nota awal
+&gt;&gt; HASIL: commit A DITERIMA (exit 0)
+
+<span class="t">=== Skenario B: commit berisi token ghp_ (harus DITOLAK) ===</span>
+pre-commit: DITOLAK — terdeteksi pola menyerupai kredensial:
+7:+api_key = "ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+&gt;&gt; HASIL: commit B DITOLAK (exit non-0) — benar
+
+<span class="t">=== Skenario C: skrip .sh cacat (shellcheck gagal -> DITOLAK) ===</span>
+In cacat.sh line 2: if [ $x = 1 ]  ^-- SC1046 (error): Couldn't find 'fi' ...
+pre-commit: DITOLAK — shellcheck melaporkan peringatan pada skrip ter-stage.
+&gt;&gt; HASIL: commit C DITOLAK (shellcheck) — benar
+
+<span class="t">=== Bonus: pesan non-Conventional (commit-msg menolak) ===</span>
+commit-msg: DITOLAK — pesan tidak mengikuti Conventional Commits.
+&gt;&gt; DITOLAK oleh commit-msg — benar</div>
+<figcaption><b>Gambar 11.</b> Pengujian hook gerbang mutu.
+<b>Penjelasan:</b> (A) commit bersih dengan pesan valid <b>diterima</b> (exit 0);
+(B) commit yang memuat token <code>ghp_...</code> <b>ditolak</b> oleh
+<code>pre-commit</code> yang memindai <code>git diff --cached</code>;
+(C) commit berisi skrip cacat <b>ditolak</b> karena <code>shellcheck</code>
+menemukan error; serta bonus — pesan "update sesuatu" <b>ditolak</b>
+<code>commit-msg</code> karena bukan Conventional Commits. Gerbang mutu mencegah
+masalah masuk riwayat sejak awal.</figcaption>
+</figure>
+<table class="small">
+  <tr><th>#</th><th>Ketentuan</th><th>Status</th></tr>
+  <tr><td>1</td><td><code>.git/hooks/pre-commit</code> executable + <code>set -euo pipefail</code></td><td class="ok">✔</td></tr>
+  <tr><td>2</td><td>Tolak pola kredensial (ghp_, AKIA, BEGIN PRIVATE KEY, PASSWORD/SECRET/TOKEN=) via <code>git diff --cached</code></td><td class="ok">✔</td></tr>
+  <tr><td>3</td><td><code>shellcheck</code> pada tiap <code>.sh</code> ter-stage; tolak bila ada peringatan</td><td class="ok">✔</td></tr>
+  <tr><td>4</td><td>Tolak pesan non-Conventional via hook <code>commit-msg</code></td><td class="ok">✔</td></tr>
+  <tr><td>5</td><td>Exit 1 + pesan jelas ke stderr; exit 0 bila lolos</td><td class="ok">✔</td></tr>
+</table>
+<p class="note">Hook berada di <code>.git/</code> sehingga <b>tidak</b> ikut ter-push.
+Salinannya disimpan di direktori <code>hooks/</code> repo agar dapat dibagikan ke
+tim pada Minggu 4. Commit terpisah &amp; 3 screenshot dilampirkan (maks +10).</p>
+
+<!-- 5 ANALISIS -->
+<h2 class="section">5. Jawaban Pertanyaan Analisis (4.1)</h2>
+
+<h3>5.1 Reset versus revert pada branch bersama</h3>
+<p>Bila rekan menjalankan <code>git reset --hard</code> + <code>git push --force</code>
+pada <code>main</code> yang sudah ditarik tiga anggota lain, ia <b>memotong riwayat
+resmi</b>. Kerusakan konkret pada salinan ketiga rekan: (1) commit yang mereka
+miliki kini "menggantung" (tidak ada di remote) sehingga <code>git pull</code>
+berikutnya menimbulkan <b>divergensi/konflik</b> dan memaksa rekonsiliasi manual;
+(2) pekerjaan lokal yang belum di-push <b>berisiko terhapus</b> saat mereka
+dipaksa menyelaraskan ke riwayat baru; (3) semua referensi commit (hash) setelah
+titik reset <b>berubah</b>, merusak tautan PR/CI yang menunjuk hash lama.
+<code>git revert</code> adalah satu-satunya pilihan tepat karena ia
+<b>menambah commit pembatal</b> (lihat Gambar 9) tanpa mengubah hash commit lama —
+remote tetap <i>fast-forward</i>, tidak ada yang kehilangan pekerjaan, dan efek
+commit perusak tetap ternetralkan.</p>
+
+<h3>5.2 Peta tiga area (hasil JOB 4)</h3>
+<table class="small">
+  <tr><th>Mode reset</th><th>Working Directory</th><th>Staging Area</th><th>Dapat dipulihkan reflog?</th></tr>
+  <tr><td><code>--soft</code></td><td>Tidak berubah</td><td>Perubahan <b>dipertahankan</b> (M di kolom kiri)</td><td>Ya (commit tercatat)</td></tr>
+  <tr><td><code>--mixed</code></td><td>Perubahan turun ke sini (M kolom kanan)</td><td><b>Dikosongkan</b></td><td>Ya (commit tercatat)</td></tr>
+  <tr><td><code>--hard</code></td><td><b>DIHAPUS</b> (disamakan ke commit tujuan)</td><td>Dikosongkan</td><td>Hanya yang <b>sudah di-commit</b></td></tr>
+</table>
+<p>Yang <b>tidak dapat</b> dipulihkan reflog: perubahan di working directory yang
+<b>belum pernah di-commit</b> lalu terkena <code>reset --hard</code>/<code>restore</code>.
+Alasannya, <code>reflog</code> hanya mencatat pergerakan <b>HEAD</b> (yakni
+commit-commit yang pernah masuk database Git); editan yang tak pernah di-commit
+tak punya objek di database sehingga tak ada yang bisa dirujuk kembali.</p>
+
+<h3>5.3 Kredensial yang terlanjur ter-commit</h3>
+<p>Token ter-commit 09.00 lalu berkasnya dihapus via commit baru 09.05 <b>tetap
+dianggap bocor</b>: menghapus berkas pada commit berikutnya <u>tidak</u>
+menghilangkannya dari riwayat — siapa pun yang meng-clone masih bisa
+<code>git show</code>/<code>checkout</code> commit 09.00 dan membaca token.
+Terlebih, begitu ter-push ke repo shared, harus diasumsikan bot crawler sudah
+memindainya. <b>Urutan penanganan yang benar:</b> (1) <b>rotasi</b> kredensial —
+cabut/nonaktifkan token lama &amp; terbitkan yang baru; (2) baru <b>bersihkan
+riwayat</b> (mis. <code>git filter-repo</code>/BFG) &amp; paksa sinkron; (3)
+perketat pencegahan (hook pre-commit, secret scanning). Urutan <b>tidak boleh
+dibalik</b>: bila membersihkan riwayat dulu tanpa rotasi, token yang sudah
+terekspos tetap sah dan dapat dipakai penyerang selama proses pembersihan
+berlangsung — rotasi mematikan nilai token seketika.</p>
+
+<h3>5.4 Ukuran commit dan kemampuan pemulihan</h3>
+<p>Pada repo saya, pola buruk yang dihindari adalah commit gabungan seperti
+<code>"update tombol dan fix db"</code> yang mencampur perubahan CSS &amp; keamanan
+DB. Bila commit campuran semacam itu harus dibatalkan <b>sebagian</b> (mis. hanya
+bagian DB yang bermasalah), <code>git revert</code> akan ikut membatalkan perbaikan
+CSS yang sebenarnya baik — memaksa penyelesaian manual yang rumit dan rawan salah.
+Dengan commit <b>atomik</b> (Gambar 10: <code>chore:</code> dan <code>docs:</code>
+terpisah), pembatalan cukup menyasar satu commit. Kaitan <b>MTTR</b>: saat insiden
+produksi, commit kecil &amp; fokus mempercepat identifikasi penyebab
+(<code>git bisect</code>) dan pemulihan (<code>revert</code> presisi), sehingga
+waktu pemulihan memendek.</p>
+
+<h3>5.5 Snapshot dan biaya branching</h3>
+<p>Dari <code>git cat-file</code> (Gambar 4–5): <code>commit</code> menunjuk
+<code>tree</code> berisi daftar <code>blob</code>; berkas <code>README.md</code>
+yang tak berubah memiliki <b>hash blob identik</b> di dua commit berurutan. Ini
+membuktikan Git menyimpan <b>snapshot</b> (keadaan utuh tiap commit) namun
+<b>tidak boros</b>: objek yang isinya sama hanya disimpan sekali dan dirujuk ulang
+(dedup berbasis hash). Karena membuat <b>branch</b> hanya menulis sebuah pointer
+41-byte ke commit yang sudah ada — bukan menyalin berkas — operasinya nyaris
+tanpa biaya ruang/waktu. Sifat inilah yang membuat strategi branching intensif
+pada Minggu 4 (feature branch, GitFlow, trunk-based) praktis dilakukan.</p>
+
+<!-- 6 KESIMPULAN -->
+<h2 class="section">6. Kesimpulan</h2>
+<ul>
+  <li>Autentikasi berpindah ke <b>SSH Ed25519</b> dengan izin kunci privat 600 —
+  <code>git fetch</code> tanpa token (JOB 1).</li>
+  <li>Tiga area kerja dipahami lewat kode status &amp; beda
+  <code>diff</code>/<code>diff --staged</code> (JOB 2).</li>
+  <li>Klaim <b>snapshot</b> dibuktikan: hash blob berkas tak-berubah identik antar
+  commit (JOB 3).</li>
+  <li>Dampak <b>amend/restore/reset/revert</b> didokumentasikan; commit "hilang"
+  dipulihkan via <b>reflog</b> (JOB 4).</li>
+  <li>Repository ditata: README, <code>.gitignore</code>, commit atomik, tag
+  <b>v1.0.0</b>, &amp; <b>bebas kredensial</b> (JOB 5).</li>
+  <li>Bonus <b>gerbang mutu</b> (pre-commit + commit-msg) menolak kredensial,
+  skrip cacat, &amp; pesan non-konvensional — lolos shellcheck.</li>
+</ul>
+
+<!-- 7 LAMPIRAN -->
+<h2 class="section">7. Lampiran</h2>
+<h3>Lampiran B.1 — <code>hooks/pre-commit</code></h3>
+<pre class="code">#!/usr/bin/env bash
+# .git/hooks/pre-commit — Gerbang Mutu: tolak kredensial + shellcheck .sh ter-stage.
+set -euo pipefail
+cred_pattern='ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{12,}|-----BEGIN[A-Z ]*PRIVATE KEY-----|(PASSWORD|SECRET|TOKEN)[[:space:]]*=[[:space:]]*[^[:space:]]'
+staged="$(git diff --cached --no-color || true)"
+if printf '%s\n' "$staged" | grep -nEq "$cred_pattern"; then
+  echo "pre-commit: DITOLAK — terdeteksi pola menyerupai kredensial:" &gt;&amp;2
+  printf '%s\n' "$staged" | grep -nEi "$cred_pattern" &gt;&amp;2
+  echo "Rotasi kredensial &amp; keluarkan dari staging sebelum commit." &gt;&amp;2
+  exit 1
+fi
+mapfile -t sh_files &lt; &lt;(git diff --cached --name-only --diff-filter=ACM | grep -E '\.sh$' || true)
+if ((${#sh_files[@]} &gt; 0)) &amp;&amp; command -v shellcheck &gt;/dev/null 2&gt;&amp;1; then
+  if ! shellcheck "${sh_files[@]}"; then
+    echo "pre-commit: DITOLAK — shellcheck melaporkan peringatan pada skrip ter-stage." &gt;&amp;2
+    exit 1
+  fi
+fi
+echo "pre-commit: seluruh pemeriksaan lolos."
+exit 0</pre>
+<h3>Lampiran B.2 — <code>hooks/commit-msg</code></h3>
+<pre class="code">#!/usr/bin/env bash
+# .git/hooks/commit-msg — wajibkan pola Conventional Commits.
+set -euo pipefail
+msg_file="$1"
+header="$(head -n 1 "$msg_file")"
+pattern='^(feat|fix|docs|chore|refactor|test)(\([a-z0-9_-]+\))?!?: .+'
+if ! printf '%s\n' "$header" | grep -qE "$pattern"; then
+  echo "commit-msg: DITOLAK — pesan tidak mengikuti Conventional Commits." &gt;&amp;2
+  echo "  Jenis diizinkan: feat, fix, docs, chore, refactor, test" &gt;&amp;2
+  echo "  Contoh benar  : 'feat(auth): tambahkan login'  atau  'fix: perbaiki bug'" &gt;&amp;2
+  exit 1
+fi
+exit 0</pre>
+
+<h3>Lampiran E — Tautan &amp; Screenshot (diisi mahasiswa)</h3>
+<table class="kv small">
+  <tr><th>Item</th><th>Isi</th></tr>
+  <tr><td>Tautan repository GitHub (private)</td><td>https://github.com/________/praktikum-devops-m01</td></tr>
+  <tr><td>Tautan tag v1.0.0</td><td>https://github.com/________/praktikum-devops-m01/releases/tag/v1.0.0</td></tr>
+</table>
+<div class="placeholder">[ Screenshot keluaran <code>ssh -T git@github.com</code> — sertakan penjelasan singkat di bawahnya ]</div>
+<div class="placeholder">[ Screenshot <code>git reflog</code> saat pemulihan — jelaskan hash yang dipakai memulihkan ]</div>
+<div class="placeholder">[ Screenshot <code>git log --oneline --graph</code> + 3 skenario pengujian hook ]</div>
+<p class="muted small" style="margin-top:20px">— Selesai —</p>
+</body>
+</html>

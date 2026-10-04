@@ -1,0 +1,25 @@
+# Virtual environment
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Kredensial & rahasia — DILARANG di-commit
+.env
+*.key
+*.pem
+*.token
+kredensial-latihan.txt
+
+# Log & artefak analisis (data sintetis pun tidak perlu di-repo)
+*.log
+app.log
+ringkasan-log.txt
+
+# Berkas OS / editor
+.DS_Store
+.vscode/
+.idea/

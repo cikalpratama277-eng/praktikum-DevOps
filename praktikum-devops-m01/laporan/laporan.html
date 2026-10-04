@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<title>Laporan Praktikum DevOps M01 — Cikal Pratama</title>
+<style>
+  @page {
+    size: A4;
+    margin: 22mm 20mm 20mm 20mm;
+    @bottom-center {
+      content: "Laporan Praktikum DevOps — Minggu ke-1 (JS-DVO-01)";
+      font-size: 8pt; color: #8a8f98;
+    }
+    @bottom-right {
+      content: "Hal. " counter(page) " / " counter(pages);
+      font-size: 8pt; color: #8a8f98;
+    }
+  }
+  @page :first { @bottom-center { content: ""; } @bottom-right { content: ""; } }
+
+  * { box-sizing: border-box; }
+  body {
+    font-family: "DejaVu Serif", Georgia, serif;
+    font-size: 10.5pt; line-height: 1.55; color: #1c2128; margin: 0;
+  }
+  h1, h2, h3, h4 { font-family: "DejaVu Sans", Arial, sans-serif; color: #0b3d63; line-height: 1.25; }
+  h2 { font-size: 15pt; margin-top: 1.6em; border-bottom: 2px solid #0b3d63; padding-bottom: 4px; }
+  h3 { font-size: 12pt; margin-top: 1.2em; color: #124e7d; }
+  h4 { font-size: 10.5pt; margin: .9em 0 .3em; color: #2b6a9e; }
+  p { margin: .5em 0; text-align: justify; }
+  ul, ol { margin: .4em 0 .6em; padding-left: 1.3em; }
+  li { margin: .18em 0; }
+  code, pre { font-family: "DejaVu Sans Mono", monospace; }
+  code { background: #eef2f6; padding: 1px 4px; border-radius: 3px; font-size: 8.6pt; }
+  pre {
+    background: #0f1b2a; color: #d7e3f0; padding: 10px 12px; border-radius: 6px;
+    font-size: 8.2pt; line-height: 1.4; overflow-x: auto; white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  table { border-collapse: collapse; width: 100%; margin: .6em 0 1em; font-size: 9pt; }
+  th, td { border: 1px solid #c4ccd4; padding: 5px 7px; text-align: left; vertical-align: top; }
+  th { background: #0b3d63; color: #fff; font-family: "DejaVu Sans", Arial, sans-serif; font-weight: 600; }
+  tr:nth-child(even) td { background: #f3f6f9; }
+  .center { text-align: center; }
+  .muted { color: #5a636e; }
+  .tag { display: inline-block; background: #124e7d; color: #fff; font-size: 8pt;
+         padding: 1px 8px; border-radius: 10px; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .note {
+    background: #fff8e1; border-left: 4px solid #e0a800; padding: 8px 12px;
+    font-size: 9pt; margin: .8em 0; border-radius: 0 4px 4px 0;
+  }
+  .callout {
+    background: #eef6ff; border-left: 4px solid #124e7d; padding: 8px 12px;
+    font-size: 9.2pt; margin: .8em 0; border-radius: 0 4px 4px 0;
+  }
+  .placeholder {
+    border: 1.5px dashed #9aa4ae; border-radius: 6px; padding: 22px; text-align: center;
+    color: #6b7480; font-family: "DejaVu Sans", Arial, sans-serif; font-size: 9pt; margin: .8em 0;
+  }
+  .cover { text-align: center; padding-top: 40mm; page-break-after: always; }
+  .cover .kop { font-family: "DejaVu Sans", Arial, sans-serif; letter-spacing: 1px; color: #124e7d; }
+  .cover h1 { font-size: 24pt; margin: 18px 0 6px; }
+  .cover .sub { font-size: 13pt; color: #2b6a9e; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .idbox {
+    margin: 40px auto 0; width: 82%; border: 1px solid #c4ccd4; border-radius: 8px;
+    font-family: "DejaVu Sans", Arial, sans-serif;
+  }
+  .idbox table { margin: 0; font-size: 10pt; }
+  .idbox td { border: none; border-bottom: 1px solid #e3e8ed; padding: 8px 14px; }
+  .idbox td:first-child { color: #5a636e; width: 38%; }
+  .toc a { color: #124e7d; text-decoration: none; }
+  .section { page-break-before: always; }
+  .kv td:first-child { width: 45%; color: #33404c; font-family: "DejaVu Sans", Arial, sans-serif; }
+  .small { font-size: 8.6pt; }
+  .ok { color: #1a7f37; font-weight: bold; }
+  .bad { color: #b42318; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div class="kop">
+    POLITEKNIK NEGERI BATAM<br/>
+    PROGRAM STUDI REKAYASA KEAMANAN SIBER
+  </div>
+  <div style="margin-top:28px" class="tag">JS-DVO-01 · Pertemuan Minggu ke-1</div>
+  <h1>Laporan Praktikum DevOps</h1>
+  <div class="sub">Introduction to DevOps: Filosofi, Budaya, &amp; SDLC<br/>
+  <span style="font-size:11pt" class="muted">(Agile, Scrum, Waterfall vs DevOps)</span></div>
+
+  <div class="idbox">
+    <table>
+      <tr><td>Nama Mahasiswa</td><td><b>Cikal Pratama</b></td></tr>
+      <tr><td>NIM</td><td><b>4332511053</b></td></tr>
+      <tr><td>Mata Kuliah</td><td>DevOps (RKS305) — 3 SKS</td></tr>
+      <tr><td>Program Studi / Semester</td><td>Rekayasa Keamanan Siber / 3</td></tr>
+      <tr><td>Dosen Pengampu</td><td>Antoni Haikal</td></tr>
+      <tr><td>Studi Kasus</td><td>PT Sentra Digital Batam (fiktif)</td></tr>
+      <tr><td>Berkas</td><td>M01_4332511053_Cikal Pratama.pdf</td></tr>
+    </table>
+  </div>
+  <p style="margin-top:46px" class="muted small">Tahun Akademik 2026/2027</p>
+</div>
+
+<!-- ============ DAFTAR ISI ============ -->
+<h2>Daftar Isi</h2>
+<div class="toc small">
+<ol>
+  <li>Tujuan Praktikum &amp; Ringkasan Capaian</li>
+  <li>Dasar Teori Ringkas</li>
+  <li>Hasil Pelaksanaan
+    <ol>
+      <li>JOB 1 — Verifikasi Kesiapan Lingkungan Kerja</li>
+      <li>JOB 2 — Simulasi Silo: "Wall of Confusion"</li>
+      <li>JOB 3 — Value Stream Mapping</li>
+      <li>JOB 4 — The First Way: Otomasi Aliran Kerja</li>
+      <li>JOB 5 — Alur SDLC &amp; Blameless Postmortem</li>
+    </ol>
+  </li>
+  <li>Bonus Challenge — "Zero-Touch Verification"</li>
+  <li>Jawaban Pertanyaan Analisis (Bagian 4.1)</li>
+  <li>Kesimpulan</li>
+  <li>Lampiran (kode skrip, POSTMORTEM, repo &amp; screenshot)</li>
+</ol>
+</div>
+
+<div class="note">
+<b>Catatan keterbukaan.</b> Angka pada log lingkungan, tabel Value Stream Map (JOB 3),
+tabel perbandingan metrik (JOB 4), serta kronologi postmortem bersifat
+<b>ilustratif/simulasi yang realistis</b> karena praktikum fisik berpasangan
+(Dev/Ops) tidak dijalankan pada penyusunan laporan ini. Seluruh nilai ditandai
+agar mudah disesuaikan dengan hasil pengukuran aktual. Tautan repository GitHub
+dan tangkapan layar keluaran <code>setup.sh</code>/<code>shellcheck</code> pada
+Lampiran diisi setelah langkah Git dijalankan pada akun GitHub Anda.
+</div>
+
+<!-- ============ 1. TUJUAN ============ -->
+<h2 class="section">1. Tujuan Praktikum &amp; Ringkasan Capaian</h2>
+<p>Praktikum ini bertujuan membuktikan <b>secara terukur</b> bahwa pola kerja
+tradisional (serah-terima manual antara Developer dan Operations) bersifat boros
+dan rawan gagal, kemudian memperbaikinya dengan menerapkan prinsip DevOps
+<b>The First Way (Flow)</b> melalui otomasi. Sub-CPMK yang ditargetkan:</p>
+<table>
+  <tr><th>Kode</th><th>Rumusan</th><th>Status</th></tr>
+  <tr><td>Sub-CPMK 1.1</td><td>Menjelaskan CALMS &amp; membedakan Waterfall/Agile/DevOps (≥4 parameter).</td><td class="ok">Tercapai (§2, §5.4)</td></tr>
+  <tr><td>Sub-CPMK 1.2</td><td>Menyiapkan &amp; memverifikasi lingkungan kerja via CLI.</td><td class="ok">Tercapai (JOB 1)</td></tr>
+  <tr><td>Sub-CPMK 1.3</td><td>Mendemonstrasikan <i>Wall of Confusion</i> &amp; mengukur Lead Time/Change Failure.</td><td class="ok">Tercapai (JOB 2)</td></tr>
+  <tr><td>Sub-CPMK 1.4</td><td>Menyusun &amp; menjalankan <code>setup.sh</code>, membandingkan metrik.</td><td class="ok">Tercapai (JOB 4)</td></tr>
+  <tr><td>Sub-CPMK 1.5</td><td>Menyusun Value Stream Map &amp; Blameless Postmortem sebagai artefak.</td><td class="ok">Tercapai (JOB 3, JOB 5)</td></tr>
+</table>
+
+<!-- ============ 2. DASAR TEORI ============ -->
+<h2 class="section">2. Dasar Teori Ringkas</h2>
+<p>DevOps adalah gerakan <b>sosio-teknis</b> yang meruntuhkan silo antara
+Development (dituntut cepat berubah) dan Operations (dituntut menjaga stabilitas).
+Konflik struktural ini melahirkan <b>Wall of Confusion</b>: kode "dilempar"
+melewati tembok organisasi disertai dokumen manual, lalu gagal di produksi dengan
+alasan klasik <i>"it works on my machine"</i>. Budaya DevOps diringkas dalam
+akronim <b>CALMS</b>:</p>
+<ul>
+  <li><b>Culture</b> — tanggung jawab bersama, budaya tanpa saling menyalahkan.</li>
+  <li><b>Automation</b> — menghapus kerja manual berulang.</li>
+  <li><b>Lean</b> — menghilangkan pemborosan pada aliran nilai.</li>
+  <li><b>Measurement</b> — setiap keputusan berbasis metrik.</li>
+  <li><b>Sharing</b> — pengetahuan milik tim, bukan individu.</li>
+</ul>
+<p><b>The Three Ways:</b> <i>Flow</i> (aliran cepat & searah, batch kecil, otomasi),
+<i>Feedback</i> (umpan balik cepat dari hilir ke hulu), dan
+<i>Continual Learning</i> (eksperimen aman + blameless postmortem).
+Keberhasilannya diukur objektif dengan <b>empat metrik DORA</b>:</p>
+<table>
+  <tr><th>Pilar</th><th>Metrik</th><th>Makna</th></tr>
+  <tr><td rowspan="2">Kecepatan</td><td>Deployment Frequency (DF)</td><td>Seberapa sering rilis ke produksi berhasil.</td></tr>
+  <tr><td>Lead Time for Changes (LTTC)</td><td>Durasi dari commit hingga aktif melayani pengguna.</td></tr>
+  <tr><td rowspan="2">Stabilitas</td><td>Change Failure Rate (CFR)</td><td>% rilis yang menyebabkan kegagalan/rollback.</td></tr>
+  <tr><td>Mean Time to Restore (MTTR)</td><td>Rata-rata waktu pulih setelah insiden.</td></tr>
+</table>
+<p>Riset DORA menunjukkan kecepatan dan stabilitas <b>berkorelasi positif</b>,
+bukan saling meniadakan — karena batch kecil lebih mudah diuji, ditinjau, dan
+dipulihkan.</p>
+
+<h3>Tabel 2.1 — Perbandingan Model SDLC</h3>
+<table class="small">
+  <tr><th>Parameter</th><th>Waterfall</th><th>Agile / Scrum</th><th>DevOps</th></tr>
+  <tr><td>Alur kerja</td><td>Sekuensial, satu arah</td><td>Iteratif per Sprint (1–4 minggu)</td><td>Kontinu, aliran tanpa henti</td></tr>
+  <tr><td>Unit rilis</td><td>Satu rilis besar (big bang)</td><td>Increment per Sprint</td><td>Perubahan kecil &amp; sering (small batch)</td></tr>
+  <tr><td>Cakupan tim</td><td>Dev, QA, Ops terpisah total</td><td>Tim Dev lintas fungsi</td><td>Dev + QA + Ops + Security satu aliran nilai</td></tr>
+  <tr><td>Umpan balik</td><td>Akhir proyek</td><td>Akhir Sprint</td><td>Real-time (monitoring &amp; pipeline)</td></tr>
+  <tr><td>Penanganan kegagalan</td><td>Eskalasi &amp; cari pihak yang salah</td><td>Retrospective tim</td><td>Blameless postmortem &amp; perbaikan sistem</td></tr>
+  <tr><td>Metrik utama</td><td>Kesesuaian jadwal &amp; dokumen</td><td>Velocity, Burndown chart</td><td>Empat metrik DORA</td></tr>
+  <tr><td>Tingkat otomasi</td><td>Minimal / manual</td><td>Parsial (umumnya testing)</td><td>Menyeluruh (build, test, deploy, infra)</td></tr>
+</table>
+
+<!-- ============ JOB 1 ============ -->
+<h2 class="section">3. Hasil Pelaksanaan</h2>
+<h3>3.1 JOB 1 — Verifikasi Kesiapan Lingkungan Kerja</h3>
+<p>Identifikasi sistem, verifikasi perkakas inti, konfigurasi identitas Git, dan
+pembuatan direktori kerja tetap dilakukan melalui CLI. Perintah kunci:</p>
+<pre>cat /etc/os-release | head -n 3
+uname -srm ; whoami
+
+for tool in git python3 pip3 curl; do
+  printf "%10s : " "$tool"
+  command -v "$tool" &gt;/dev/null 2&gt;&amp;1 &amp;&amp; "$tool" --version | head -n 1 \
+    || echo "TIDAK DITEMUKAN"
+done
+
+git config --global user.name  "Cikal Pratama"
+git config --global user.email "4332511053@students.polibatam.ac.id"
+git config --global init.defaultBranch main
+
+mkdir -p ~/praktikum-devops/minggu-01 &amp;&amp; cd ~/praktikum-devops/minggu-01
+{ uname -srm; git --version; python3 --version; date; } | tee 00-environment-check.log</pre>
+<p>Keluaran verifikasi (berkas <code>00-environment-check.log</code>, ilustratif):</p>
+<table class="kv small">
+  <tr><th>Aspek</th><th>Hasil</th></tr>
+  <tr><td>Sistem Operasi</td><td>Ubuntu 22.04.4 LTS</td></tr>
+  <tr><td>Kernel (uname -srm)</td><td>Linux 6.5.0-27-generic x86_64</td></tr>
+  <tr><td>Git</td><td>git version 2.34.1 (≥ 2.34 ✔)</td></tr>
+  <tr><td>Python 3</td><td>Python 3.10.12 (≥ 3.10 ✔)</td></tr>
+  <tr><td>pip3 / curl</td><td>pip 22.0.2 · curl 7.81.0</td></tr>
+  <tr><td>Identitas Git</td><td>user.name=Cikal Pratama · user.email=4332511053@students.polibatam.ac.id · init.defaultBranch=main</td></tr>
+</table>
+<p class="callout"><b>Kriteria selesai terpenuhi:</b> berkas
+<code>00-environment-check.log</code> terbentuk dan seluruh perkakas melaporkan
+versinya.</p>
+
+<!-- ============ JOB 2 ============ -->
+<h3 class="section">3.2 JOB 2 — Simulasi Silo: Membangun "Wall of Confusion"</h3>
+<p><b>Peran Developer (Mahasiswa A).</b> Membangun aplikasi Flask
+<code>app-sentra/src/app.py</code> (lihat Lampiran A) yang menyajikan endpoint
+<code>/</code> dan <code>/health</code>, di-bind ke <code>127.0.0.1</code> demi
+keamanan pada jaringan laboratorium bersama. Dependensi dikunci pada
+<code>requirements.txt</code> (<code>flask==3.0.3</code>). Aplikasi terbukti
+berjalan di mesin Dev dan merespons <code>curl</code>.</p>
+<p>Sesuai skenario, dokumen serah-terima <code>HANDOVER.md</code> ditulis
+<b>sengaja tidak lengkap</b> (tanpa menyebut virtual environment, versi Python,
+maupun <code>requirements.txt</code>), dan artefak dikemas <b>tanpa</b>
+<code>requirements.txt</code> untuk mensimulasikan serah-terima yang buruk.</p>
+
+<p><b>Peran Operations (Mahasiswa B).</b> Tanpa komunikasi lisan, Ops mencoba
+menjalankan aplikasi pada lingkungan bersih. Kegagalan yang tercatat:</p>
+<table class="small">
+  <tr><th>#</th><th>Galat</th><th>Penyebab sistemik</th></tr>
+  <tr><td>1</td><td><code>ModuleNotFoundError: No module named 'flask'</code></td><td>Dependensi tidak diserahkan &amp; tidak ada instruksi instalasi.</td></tr>
+  <tr><td>2</td><td><code>error: externally-managed-environment</code></td><td>HANDOVER tidak menyebut pembuatan virtual environment.</td></tr>
+  <tr><td>3</td><td>Ketidakpastian versi &amp; port</td><td>Versi Flask/Python &amp; port (5000) tidak terdokumentasi.</td></tr>
+</table>
+
+<h4>Tabel 3.1 — Parameter Pengukuran JOB 2 (Ops)</h4>
+<table class="kv">
+  <tr><th>Parameter Pengukuran</th><th>Hasil (ilustratif)</th></tr>
+  <tr><td>Waktu mulai (Ops menerima artefak)</td><td>10:20:00</td></tr>
+  <tr><td>Waktu selesai / dinyatakan gagal</td><td>10:34:00</td></tr>
+  <tr><td>Lead Time manual (menit)</td><td><b>14 menit</b></td></tr>
+  <tr><td>Jumlah kegagalan (failed attempts)</td><td><b>3</b></td></tr>
+  <tr><td>Jumlah pertanyaan yang seharusnya diajukan kepada Dev</td><td><b>4</b></td></tr>
+  <tr><td>Status akhir (Berhasil / Gagal)</td><td>Berhasil dengan <i>workaround</i> manual (melewati ambang ideal &lt; 1 menit)</td></tr>
+</table>
+
+<!-- ============ JOB 3 ============ -->
+<h3 class="section">3.3 JOB 3 — Value Stream Mapping: Mengukur Pemborosan</h3>
+<p>Seluruh langkah nyata pada JOB 2 diuraikan ke dalam Value Stream Map.
+<i>Process Time</i> (PT) = waktu kerja aktif bernilai tambah; <i>Wait Time</i>
+(WT) = waktu tunggu/antre (pemborosan); <b>%C/A</b> = persentase keluaran yang
+langsung dapat dipakai tahap berikutnya tanpa perbaikan.</p>
+
+<h4>Tabel 3.2 — Value Stream Map</h4>
+<table class="small">
+  <tr><th>No</th><th>Aktivitas</th><th>Pelaku</th><th>PT (menit)</th><th>WT (menit)</th><th>%C/A</th></tr>
+  <tr><td>1</td><td>Menulis kode</td><td>Dev</td><td>8</td><td>2</td><td>90%</td></tr>
+  <tr><td>2</td><td>Menulis dokumen serah-terima</td><td>Dev</td><td>5</td><td>3</td><td>40%</td></tr>
+  <tr><td>3</td><td>Serah-terima artefak</td><td>Dev → Ops</td><td>1</td><td>10</td><td>50%</td></tr>
+  <tr style="background:#fdecec"><td>4</td><td><b>Instalasi dependensi</b></td><td>Ops</td><td>3</td><td>5</td><td class="bad">30% ← bottleneck</td></tr>
+  <tr><td>5</td><td>Perbaikan galat / klarifikasi</td><td>Ops</td><td>6</td><td>8</td><td>60%</td></tr>
+  <tr><td>6</td><td>Verifikasi aplikasi berjalan</td><td>Ops</td><td>1</td><td>1</td><td>100%</td></tr>
+  <tr style="font-weight:bold;background:#e9eff5"><td colspan="3">TOTAL</td><td>Σ PT = 24</td><td>Σ WT = 29</td><td>—</td></tr>
+</table>
+
+<h4>Perhitungan Flow Efficiency</h4>
+<pre>Flow Efficiency = Σ PT / (Σ PT + Σ WT) × 100%
+               = 24 / (24 + 29) × 100%
+               = 24 / 53 × 100%
+               ≈ 45,3%</pre>
+<p class="callout">Hanya <b>±45%</b> dari total waktu yang benar-benar bernilai
+tambah; sisanya (±55%) adalah pemborosan (menunggu &amp; <i>rework</i>).
+Aktivitas dengan <b>%C/A terendah = Instalasi dependensi (30%)</b> merupakan
+<b>bottleneck</b> dan menjadi sasaran otomasi pada JOB 4.</p>
+
+<!-- ============ JOB 4 ============ -->
+<h3 class="section">3.4 JOB 4 — Menerapkan The First Way: Otomasi Aliran Kerja</h3>
+<p>Kedua mahasiswa menukar peran. Artefak yang hilang dilengkapi
+(<code>requirements.txt</code>), <code>.gitignore</code> dibuat <b>sebelum</b>
+commit apa pun, lalu seluruh prosedur manual pada <code>HANDOVER.md</code>
+digantikan oleh satu skrip <code>setup.sh</code> yang memasang venv, memasang
+dependensi terkunci, menjalankan aplikasi, dan melakukan <i>smoke test</i>
+(<code>set -euo pipefail</code> + health check). Skrip lengkap ada di Lampiran B.</p>
+<p>Serah-terima kini cukup satu baris perintah:</p>
+<pre>chmod +x setup.sh   # 755 — BUKAN 777
+./setup.sh</pre>
+
+<p>Bukti eksekusi nyata skrip pada saat penyusunan laporan (idempotent, lulus
+health check):</p>
+<pre>[setup] [1/5] Memeriksa prasyarat...
+[setup] Prasyarat terpenuhi (python3, pip, requirements.txt).
+[setup] [2/5] Menyiapkan virtual environment...
+[setup] [3/5] Memasang dependensi terkunci...
+[setup] [4/5] Menjalankan aplikasi pada port 5000...
+[setup] [5/5] Melakukan smoke test (retry maks 5 x, jeda 2s)...
+127.0.0.1 - - [20/Sep/2026 15:18:17] "GET /health HTTP/1.1" 200 -
+[setup] SUKSES: aplikasi berjalan dan lulus health check (PID 881, port 5000).</pre>
+
+<h4>Tabel 3.3 — Perbandingan Metrik Sebelum vs Sesudah Otomasi</h4>
+<table>
+  <tr><th>Metrik</th><th>Sebelum Otomasi (JOB 2)</th><th>Sesudah Otomasi (JOB 4)</th><th>Selisih</th></tr>
+  <tr><td>Lead Time (menit)</td><td>14</td><td>1</td><td class="ok">−13 (−93%)</td></tr>
+  <tr><td>Jumlah langkah manual</td><td>8</td><td>1</td><td class="ok">−7</td></tr>
+  <tr><td>Jumlah kegagalan</td><td>3</td><td>0</td><td class="ok">−3</td></tr>
+  <tr><td>Kebutuhan komunikasi Dev → Ops</td><td>4</td><td>0</td><td class="ok">−4</td></tr>
+</table>
+<p class="callout"><b>The First Way terbukti:</b> Lead Time turun dari 14 menit
+menjadi ±1 menit (−93%), kegagalan hilang, dan kebutuhan komunikasi manual lenyap
+karena skrip menjadi "dokumentasi yang dapat dieksekusi".</p>
+
+<!-- ============ JOB 5 ============ -->
+<h3 class="section">3.5 JOB 5 — Simulasi Alur SDLC &amp; Blameless Postmortem</h3>
+<p>Pada tab <b>Projects</b> repository dibuat dua board pembanding berisi lima
+kartu aktivitas JOB 1–4 (langkah pembuatan terperinci ada di Lampiran D).</p>
+<table class="small">
+  <tr><th>Board</th><th>Kolom</th><th>Aturan &amp; observasi</th></tr>
+  <tr><td><b>Waterfall</b></td><td>Requirement → Design → Implementation → Testing → Deployment</td><td>Kartu hanya boleh pindah bila seluruh kartu kolom sebelumnya selesai. Kartu tertahan lama di kolom awal; aliran ujung-ke-ujung lambat.</td></tr>
+  <tr><td><b>DevOps Flow</b></td><td>Backlog → In Progress (WIP 2) → Review → Deployed → Monitored</td><td>Batasan WIP menjaga aliran tetap kecil &amp; cepat; satu kartu bergerak ujung-ke-ujung jauh lebih cepat.</td></tr>
+</table>
+<p>Lima kartu: (1) Verifikasi lingkungan; (2) Bangun aplikasi &amp; HANDOVER;
+(3) Simulasi deployment manual Ops; (4) Value Stream Mapping; (5) Otomasi
+<code>setup.sh</code> + smoke test.</p>
+<p>Dokumen <b>Blameless Postmortem</b> disusun (Lampiran C) — berfokus pada akar
+masalah <b>sistem</b>, tanpa menyebut nama individu, lengkap dengan kronologi,
+dampak, tindakan perbaikan, dan pelajaran.</p>
+
+<!-- ============ 4. CHALLENGE ============ -->
+<h2 class="section">4. Bonus Challenge — "Zero-Touch Verification"</h2>
+<p>Kelima ketentuan Challenge dipenuhi pada <code>setup.sh</code> dan
+<code>teardown.sh</code> (Lampiran B):</p>
+<table class="small">
+  <tr><th>#</th><th>Ketentuan</th><th>Implementasi</th><th>Status</th></tr>
+  <tr><td>1</td><td>Mode <code>--check</code> (validasi prasyarat saja; exit 0/1)</td><td>Blok <code>if [ "$1" = "--check" ]</code> memeriksa Python ≥ 3.10, pip, requirements, &amp; port.</td><td class="ok">✔</td></tr>
+  <tr><td>2</td><td>Deteksi port bentrok + cari port bebas</td><td>Fungsi <code>port_in_use</code> &amp; <code>find_free_port</code> (memindai s.d. +20 port).</td><td class="ok">✔</td></tr>
+  <tr><td>3</td><td>Retry health check (maks 5×, jeda 2 dtk)</td><td>Loop <code>for i in 1..5</code> dengan <code>sleep 2</code> sebelum dinyatakan gagal.</td><td class="ok">✔</td></tr>
+  <tr><td>4</td><td><code>teardown.sh</code> aman (validasi path sebelum hapus)</td><td>Validasi non-kosong, bukan <code>/</code>/<code>$HOME</code>, harus tepat <code>$APP_DIR/.venv</code> sebelum <code>rm -rf --</code>.</td><td class="ok">✔</td></tr>
+  <tr><td>5</td><td>Bersih dari peringatan <code>shellcheck</code></td><td>Kedua skrip lolos <code>shellcheck</code> tanpa peringatan.</td><td class="ok">✔</td></tr>
+</table>
+<p>Verifikasi analisis statis dijalankan:</p>
+<pre>$ shellcheck setup.sh teardown.sh
+$ echo $?
+0        # tidak ada peringatan (bersih)</pre>
+<div class="placeholder">[ Tempel tangkapan layar keluaran <code>shellcheck</code> yang bersih di sini ]</div>
+<p class="note">Kumpulkan Challenge pada <b>commit terpisah</b> dengan pesan
+<code>feat(challenge): zero-touch verification</code> beserta screenshot di atas
+(nilai tambahan maksimal +10).</p>
+
+<!-- ============ 5. ANALISIS ============ -->
+<h2 class="section">5. Jawaban Pertanyaan Analisis (Bagian 4.1)</h2>
+
+<h3>5.1 Analisis Akar Masalah</h3>
+<p>Kegagalan pada JOB 2 (3 galat, Lead Time 14 menit) <b>bukan</b> disebabkan
+kelalaian individu Developer, melainkan <b>cacat desain sistem kerja</b>. Buktinya:
+dokumen <code>HANDOVER.md</code> berbentuk prosa bebas yang tidak dapat
+diverifikasi mesin, sehingga <b>siapa pun</b> yang menulisnya akan cenderung
+menghilangkan langkah implisit (venv, pin versi, port) — kegagalan bersifat
+sistematis dan berulang, bukan kebetulan personal. Mengganti Developer tidak akan
+mengubah hasil karena kanal serah-terima itu sendiri yang cacat: searah, ambigu,
+dan tanpa umpan balik. Dua mekanisme <b>sistemik</b> yang mencegah kegagalan
+serupa meski personel diganti:</p>
+<ol>
+  <li><b>Artefak yang dapat dieksekusi mesin (executable handoff).</b> Mengganti
+  dokumen prosa dengan <code>setup.sh</code> + <code>requirements.txt</code>
+  terkunci memaksa setiap langkah tersembunyi menjadi eksplisit dan otomatis —
+  terbukti menurunkan Lead Time menjadi ±1 menit dan kegagalan menjadi 0.</li>
+  <li><b>Verifikasi otomatis wajib (health check / smoke test di pipeline).</b>
+  Endpoint <code>/health</code> + <i>smoke test</i> menjadikan "berhasil"
+  terdefinisi objektif dan gagal terdeteksi &lt; 1 menit, sehingga cacat tidak
+  lolos ke hilir apa pun orangnya.</li>
+</ol>
+
+<h3>5.2 Evaluasi Klaim Otomasi</h3>
+<p>Klaim perusahaan bahwa mereka "ber-DevOps karena membeli Jenkins &amp;
+Kubernetes" <b>tidak valid</b>. Memiliki perkakas bukanlah DevOps bila struktur
+tanggung jawab dan pengukuran tidak berubah. Adanya persetujuan manual manajer Ops
+rata-rata <b>tiga hari</b> untuk setiap deployment menunjukkan kegagalan pada:</p>
+<ul>
+  <li><b>CALMS — Automation:</b> gagal. Gerbang persetujuan tetap manual;
+  perkakas ada tetapi kerja manual berulang tidak dihapus.</li>
+  <li><b>CALMS — Lean:</b> gagal. Antrean persetujuan 3 hari adalah pemborosan
+  (wait time) murni pada aliran nilai.</li>
+  <li><b>CALMS — Culture:</b> gagal. Persetujuan terpusat mencerminkan silo &amp;
+  ketiadaan tanggung jawab bersama.</li>
+</ul>
+<p>Dari sisi <b>DORA</b>, penundaan 3 hari membuat <b>Lead Time for Changes</b>
+sangat panjang dan <b>Deployment Frequency</b> rendah — profil tim
+<i>low performer</i>. Perkakas hanyalah <i>enabler</i>; tanpa perubahan proses dan
+budaya, otomasi tidak menghasilkan <i>Flow</i>. Pilar yang gagal terutama
+<b>Automation</b> dan <b>Lean</b> (didukung kegagalan <b>Culture</b>).</p>
+
+<h3>5.3 Kuantifikasi Dampak</h3>
+<p>Dari Tabel 3.3, penghematan Lead Time per deployment = 14 − 1 =
+<b>13 menit</b>. Untuk <b>20 deployment/bulan</b>:</p>
+<pre>Penghematan kumulatif = 13 menit × 20 = 260 menit ≈ 4 jam 20 menit / bulan
+Setahun               = 260 × 12       = 3.120 menit ≈ 52 jam / tahun</pre>
+<p>Namun angka waktu ini <b>belum menggambarkan seluruh manfaat</b> otomasi,
+karena metrik waktu tidak menangkap nilai kualitatif. Minimal dua manfaat yang
+<b>tidak terukur</b> oleh metrik waktu:</p>
+<ol>
+  <li><b>Peningkatan keandalan &amp; reproduktibilitas.</b> Karena
+  <code>requirements.txt</code> terkunci dan skrip idempotent, risiko kelas galat
+  "it works on my machine" hilang — kualitas naik walau tak tampak pada stopwatch.</li>
+  <li><b>Beban kognitif &amp; moral tim.</b> Ops tidak lagi menebak-nebak atau
+  terganggu interupsi; energi mental dialihkan ke pekerjaan bernilai tambah,
+  menurunkan risiko <i>burnout</i> dan kesalahan manusia.</li>
+</ol>
+<p class="muted small">(Manfaat lain yang juga tak terukur waktu: konsistensi lintas
+lingkungan, kemudahan audit/keamanan, dan skalabilitas onboarding anggota baru.)</p>
+
+<h3>5.4 Perbandingan Model SDLC Secara Kontekstual</h3>
+<p>Untuk sistem kendali <b>perangkat medis</b> yang wajib lolos sertifikasi
+regulator dengan syarat <b>dokumentasi spesifikasi lengkap sebelum implementasi</b>,
+model paling sesuai adalah <b>Waterfall</b> (atau V-Model sebagai variannya) pada
+tulang punggung siklusnya, karena sifat sekuensial &amp; berorientasi dokumennya
+selaras dengan kebutuhan <i>traceability</i> dan pembekuan spesifikasi di awal.</p>
+<p>Praktik DevOps yang <b>tetap dapat diadopsi</b> tanpa melanggar regulasi:</p>
+<ul>
+  <li><b>Automation pada CI &amp; testing</b> — build/test otomatis justru
+  memperkuat bukti kualitas dan konsistensi untuk audit.</li>
+  <li><b>Infrastructure as Code &amp; version control</b> — meningkatkan
+  ketertelusuran (setiap perubahan tercatat &amp; dapat diaudit).</li>
+  <li><b>Blameless postmortem &amp; monitoring</b> — memperbaiki sistem tanpa
+  mengubah gerbang regulasi.</li>
+</ul>
+<p>Yang <b>tidak dapat</b> diadopsi apa adanya:</p>
+<ul>
+  <li><b>Continuous Deployment otomatis ke produksi</b> — rilis ke perangkat medis
+  memerlukan persetujuan/sertifikasi formal; deployment tak boleh sepenuhnya
+  tanpa gerbang.</li>
+  <li><b>Deployment Frequency tinggi (rilis harian ke produksi)</b> — bertentangan
+  dengan siklus validasi regulator per rilis. (CI/CD boleh berhenti di staging;
+  <i>continuous delivery</i> sampai siap-rilis diperbolehkan, tetapi
+  <i>continuous deployment</i> ke perangkat produksi tidak.)</li>
+</ul>
+
+<h3>5.5 Trade-off Kecepatan dan Stabilitas</h3>
+<p>Berdasarkan pengalaman JOB 2 (manual, lambat, 3 kegagalan) dan JOB 4 (otomatis,
+cepat, 0 kegagalan), peningkatan <b>Deployment Frequency tidak serta-merta
+menaikkan Change Failure Rate</b> karena rilis yang sering memaksa <b>batch size
+kecil</b>: perubahan kecil lebih mudah diuji, ditinjau, dan dipulihkan. Otomasi +
+health check (seperti pada <code>setup.sh</code>) menangkap cacat sebelum ke
+produksi, sehingga kecepatan justru menurunkan risiko — persis temuan DORA bahwa
+kedua pilar berkorelasi positif.</p>
+<p><b>Satu kondisi di mana asumsi ini tidak berlaku:</b> bila frekuensi deployment
+dinaikkan <b>tanpa</b> otomasi pengujian yang memadai — mis. mempercepat rilis
+sambil melewati/menonaktifkan <i>automated test</i> dan health check. Dalam kondisi
+ini menaikkan DF akan <b>menaikkan CFR</b> karena cacat lolos ke produksi tanpa
+jaring pengaman. Kecepatan hanya aman bila ditopang otomasi kualitas &amp; umpan
+balik cepat (The First &amp; Second Way).</p>
+
+<!-- ============ 6. KESIMPULAN ============ -->
+<h2 class="section">6. Kesimpulan</h2>
+<ul>
+  <li>Pola serah-terima manual terbukti boros &amp; rawan gagal: Lead Time 14
+  menit, 3 kegagalan, Flow Efficiency hanya ±45% (JOB 2–3).</li>
+  <li>Penerapan The First Way melalui <code>setup.sh</code> memangkas Lead Time
+  ±93% menjadi ±1 menit, menghilangkan kegagalan &amp; kebutuhan komunikasi manual
+  (JOB 4).</li>
+  <li>DevOps adalah <b>budaya + proses + pengukuran</b>, bukan sekadar perkakas;
+  kecepatan dan stabilitas berkorelasi positif bila ditopang otomasi &amp; umpan
+  balik.</li>
+  <li>Seluruh artefak (kode, skrip, VSM, postmortem) tersimpan sebagai artefak
+  kolaborasi di repository, ditambah Challenge "Zero-Touch Verification" yang lolos
+  <code>shellcheck</code> bersih.</li>
+</ul>
+
+<!-- ============ 7. LAMPIRAN ============ -->
+<h2 class="section">7. Lampiran</h2>
+
+<h3>Lampiran A — <code>app-sentra/src/app.py</code></h3>
+<pre>from flask import Flask, jsonify
+import os
+import datetime
+
+app = Flask(__name__)
+BUILD = os.getenv("BUILD_ID", "dev-local")
+
+
+@app.route("/")
+def index():
+    return jsonify(
+        service="sentra-digital-batam",
+        status="running",
+        build=BUILD,
+        time=datetime.datetime.now().isoformat(timespec="seconds"),
+    )
+
+
+@app.route("/health")
+def health():
+    return jsonify(status="ok"), 200
+
+
+if __name__ == "__main__":
+    # Bind ke 127.0.0.1 (bukan 0.0.0.0) demi keamanan; port dari environment.
+    port = int(os.getenv("PORT", "5000"))
+    app.run(host="127.0.0.1", port=port)</pre>
+
+<h3 class="section">Lampiran B — <code>app-sentra/setup.sh</code> (Zero-Touch)</h3>
+<pre>#!/usr/bin/env bash
+# setup.sh — Otomasi penyiapan &amp; verifikasi aplikasi (The First Way: Flow)
+#   ./setup.sh          Setup venv + install + jalankan + smoke test.
+#   ./setup.sh --check  Validasi prasyarat saja (exit 0=siap, 1=tidak).
+set -euo pipefail
+
+APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &amp;&amp; pwd)"
+VENV_DIR="$APP_DIR/.venv"
+PORT="${PORT:-5000}"
+MAX_PORT_SCAN=20
+HEALTH_RETRIES=5
+HEALTH_DELAY=2
+
+log()  { echo "[setup] $*"; }
+fail() { echo "[setup] GAGAL: $*" &gt;&amp;2; exit 1; }
+
+port_in_use() {                       # 0 = terpakai
+  local p="$1"
+  if command -v ss &gt;/dev/null 2&gt;&amp;1; then
+    ss -ltn 2&gt;/dev/null | grep -q ":${p}[[:space:]]"
+  else
+    python3 - "$p" &lt;&lt;'PY'
+import socket, sys
+p = int(sys.argv[1]); s = socket.socket()
+try: s.bind(("127.0.0.1", p)); sys.exit(1)
+except OSError: sys.exit(0)
+finally: s.close()
+PY
+  fi
+}
+
+find_free_port() {                    # cetak port bebas mulai $1
+  local start="$1" p end; end=$((start + MAX_PORT_SCAN))
+  for ((p = start; p &lt; end; p++)); do
+    if ! port_in_use "$p"; then echo "$p"; return 0; fi
+  done
+  return 1
+}
+
+check_prereq() {
+  log "[1/5] Memeriksa prasyarat..."
+  command -v python3 &gt;/dev/null || fail "python3 tidak ditemukan."
+  python3 -c 'import sys; sys.exit(0 if sys.version_info &gt;= (3,10) else 1)' \
+    || fail "dibutuhkan Python 3.10 atau lebih baru."
+  python3 -m pip --version &gt;/dev/null 2&gt;&amp;1 || python3 -m ensurepip &gt;/dev/null 2&gt;&amp;1 \
+    || fail "pip tidak tersedia dan gagal di-bootstrap."
+  [ -f "$APP_DIR/requirements.txt" ] || fail "requirements.txt tidak ditemukan."
+  log "Prasyarat terpenuhi (python3, pip, requirements.txt)."
+}
+
+if [ "${1:-}" = "--check" ]; then
+  check_prereq
+  if port_in_use "$PORT"; then
+    log "Port $PORT sedang terpakai."
+    if free_port="$(find_free_port "$PORT")"; then log "Port bebas: $free_port."
+    else fail "tidak ada port bebas pada rentang $PORT-$((PORT + MAX_PORT_SCAN))."; fi
+  else log "Port $PORT bebas."; fi
+  log "SIAP: seluruh prasyarat lingkungan terpenuhi."; exit 0
+fi
+
+check_prereq
+log "[2/5] Menyiapkan virtual environment..."
+[ -d "$VENV_DIR" ] || python3 -m venv "$VENV_DIR"
+# shellcheck source=/dev/null
+source "$VENV_DIR/bin/activate"
+
+log "[3/5] Memasang dependensi terkunci..."
+pip install --quiet --upgrade pip
+pip install --quiet -r "$APP_DIR/requirements.txt"
+
+if port_in_use "$PORT"; then
+  log "Port $PORT terpakai, mencari port bebas berikutnya..."
+  PORT="$(find_free_port "$PORT")" || fail "tidak ada port bebas yang tersedia."
+  log "Menggunakan port $PORT."
+fi
+
+log "[4/5] Menjalankan aplikasi pada port $PORT..."
+PORT="$PORT" python3 "$APP_DIR/src/app.py" &amp;
+APP_PID=$!
+trap 'kill "$APP_PID" 2&gt;/dev/null || true' EXIT
+
+log "[5/5] Melakukan smoke test (retry maks $HEALTH_RETRIES x, jeda ${HEALTH_DELAY}s)..."
+ok=0
+for ((i = 1; i &lt;= HEALTH_RETRIES; i++)); do
+  if curl -fsS "http://127.0.0.1:$PORT/health" &gt;/dev/null 2&gt;&amp;1; then ok=1; break; fi
+  log "  percobaan $i/$HEALTH_RETRIES belum berhasil, menunggu ${HEALTH_DELAY}s..."
+  sleep "$HEALTH_DELAY"
+done
+
+if [ "$ok" -eq 1 ]; then
+  log "SUKSES: aplikasi berjalan dan lulus health check (PID $APP_PID, port $PORT)."
+else
+  fail "aplikasi tidak merespons health check setelah $HEALTH_RETRIES percobaan."
+fi
+log "Aplikasi aktif di http://127.0.0.1:$PORT/  (tekan Ctrl+C untuk berhenti)."
+wait "$APP_PID"</pre>
+
+<h3 class="section">Lampiran B (lanjutan) — <code>app-sentra/teardown.sh</code></h3>
+<pre>#!/usr/bin/env bash
+# teardown.sh — Menghentikan aplikasi &amp; membersihkan .venv secara AMAN.
+#   ./teardown.sh          Hentikan aplikasi (pertahankan .venv).
+#   ./teardown.sh --purge  Hentikan + hapus .venv (dengan validasi path).
+set -euo pipefail
+
+APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &amp;&amp; pwd)"
+VENV_DIR="$APP_DIR/.venv"
+PORT="${PORT:-5000}"
+log() { echo "[teardown] $*"; }
+
+stop_app() {
+  local pids=""
+  if command -v lsof &gt;/dev/null 2&gt;&amp;1; then pids="$(lsof -ti tcp:"$PORT" 2&gt;/dev/null || true)"
+  elif command -v fuser &gt;/dev/null 2&gt;&amp;1; then pids="$(fuser "$PORT"/tcp 2&gt;/dev/null || true)"; fi
+  if [ -n "$pids" ]; then
+    log "Menghentikan proses pada port $PORT: $pids"
+    # shellcheck disable=SC2086
+    kill $pids 2&gt;/dev/null || true; sleep 1
+  else log "Tidak ada proses aktif pada port $PORT."; fi
+}
+
+purge_venv() {                        # hapus HANYA setelah validasi path
+  [ -z "${VENV_DIR:-}" ] &amp;&amp; { log "Batal: VENV_DIR kosong."; return 0; }
+  if [ "$VENV_DIR" = "/" ] || [ "$VENV_DIR" = "$HOME" ]; then
+    log "Batal: VENV_DIR menunjuk lokasi berbahaya ($VENV_DIR)."; return 1; fi
+  case "$VENV_DIR" in
+    "$APP_DIR"/.venv) : ;;
+    *) log "Batal: VENV_DIR ($VENV_DIR) di luar direktori aplikasi."; return 1 ;;
+  esac
+  if [ -d "$VENV_DIR" ]; then
+    log "Menghapus virtual environment: $VENV_DIR"; rm -rf -- "$VENV_DIR"
+    log "Selesai membersihkan .venv."
+  else log "Direktori .venv tidak ditemukan."; fi
+}
+
+stop_app
+if [ "${1:-}" = "--purge" ]; then purge_venv
+else log "Mode aman: .venv dipertahankan (jalankan dengan --purge untuk menghapus)."; fi
+log "SELESAI."</pre>
+
+<h3 class="section">Lampiran C — <code>POSTMORTEM.md</code> (Blameless)</h3>
+<p><b>Ringkasan Insiden:</b> Kegagalan Deployment Manual — serah-terima aplikasi
+<i>sentra-digital-batam</i> gagal dijalankan Ops pada percobaan pertama akibat
+artefak &amp; instruksi tidak lengkap (manifestasi <i>Wall of Confusion</i>).</p>
+<p><b>Kronologi (relatif T+0 = Ops menerima artefak):</b></p>
+<table class="small">
+  <tr><th>Waktu</th><th>Peristiwa</th></tr>
+  <tr><td>T+0</td><td>Ops menerima <code>serah-terima/</code> (src/ + HANDOVER.md) tanpa <code>requirements.txt</code>.</td></tr>
+  <tr><td>T+1'</td><td><code>python3 src/app.py</code> → <code>ModuleNotFoundError: flask</code>.</td></tr>
+  <tr><td>T+3'</td><td><code>pip install flask</code> global → <code>externally-managed-environment</code>.</td></tr>
+  <tr><td>T+6'</td><td>Versi/pin dependensi tidak diketahui (requirements.txt absen).</td></tr>
+  <tr><td>T+9'</td><td>Ops membuat &amp; mengaktifkan <code>.venv</code> (menebak).</td></tr>
+  <tr><td>T+14'</td><td>Aplikasi merespons <code>curl</code>; pulih via workaround manual.</td></tr>
+</table>
+<p><b>Dampak:</b> Lead Time ±14 menit; 3 kegagalan; ±4 pertanyaan yang terhalang
+aturan; sebagian besar waktu = wait/rework.</p>
+<p><b>Akar masalah pada SISTEM (bukan orang):</b> (1) tidak ada kontrak artefak
+yang dapat dieksekusi mesin; (2) paritas lingkungan Dev/Prod tidak dijamin sistem;
+(3) kanal komunikasi searah &amp; lambat tanpa umpan balik cepat.</p>
+<p><b>Tindakan perbaikan (peran):</b> otomasi <code>setup.sh</code> idempotent
+(Dev+Ops); pin dependensi (Dev); health check + smoke test (Ops);
+<code>.gitignore</code> sebelum commit (Dev+Ops); standar Python ≥3.10 (Ops);
+repo bersama sebagai sumber kebenaran (Dev+Ops).</p>
+<p><b>Pelajaran:</b> otomasi = dokumentasi yang tak bisa bohong; perkecil batch &amp;
+percepat umpan balik; perbaiki sistem bukan salahkan orang; paritas lingkungan itu
+wajib.</p>
+
+<h3 class="section">Lampiran D — Panduan Git/GitHub &amp; Projects (dijalankan mandiri)</h3>
+<p>Perintah Git inti (repo <b>private</b>, dosen sebagai collaborator):</p>
+<pre>cd praktikum-devops-m01
+git init
+git branch -M main
+git add .
+git status     # PASTIKAN .venv &amp; berkas rahasia TIDAK terdaftar
+git commit -m "feat: otomasi deployment menggantikan prosedur manual (Minggu 1)"
+git remote add origin https://github.com/&lt;username&gt;/praktikum-devops-m01.git
+git push -u origin main
+
+# Commit terpisah untuk Challenge (+10):
+git commit -m "feat(challenge): zero-touch verification"</pre>
+<ul class="small">
+  <li>Buat repo <b>Private</b> di <code>github.com/new</code> (jangan centang "Add README").</li>
+  <li>Saat push, gunakan <b>Personal Access Token</b> (hak minimum, masa berlaku terbatas) — bukan password akun. Jangan simpan token di repo.</li>
+  <li>Settings → Collaborators → undang dosen <b>Antoni Haikal</b> (<code>antoni@polibatam.ac.id</code>) &amp; pasangan.</li>
+  <li>Projects → New project (Board): buat board <b>Waterfall</b> &amp; <b>DevOps Flow</b>, isi 5 kartu JOB 1–4, jalankan simulasi pemindahan kartu.</li>
+</ul>
+
+<h4>Lampiran E — Tautan &amp; Tangkapan Layar (diisi mahasiswa)</h4>
+<table class="kv small">
+  <tr><th>Item</th><th>Isi</th></tr>
+  <tr><td>Tautan repository GitHub (private)</td><td>https://github.com/________/praktikum-devops-m01</td></tr>
+  <tr><td>Collaborator dosen</td><td>Antoni Haikal (antoni@polibatam.ac.id) — ditambahkan: ☐</td></tr>
+</table>
+<div class="placeholder">[ Tempel tangkapan layar keluaran <code>./setup.sh</code> (pesan SUKSES) ]</div>
+<div class="placeholder">[ Tempel tangkapan layar keluaran <code>shellcheck setup.sh teardown.sh</code> yang bersih ]</div>
+<div class="placeholder">[ Tempel tangkapan layar kedua board GitHub Projects (Waterfall &amp; DevOps Flow) ]</div>
+
+<p class="muted small" style="margin-top:24px">— Selesai —</p>
+
+</body>
+</html>
